@@ -1,18 +1,10 @@
-[tool.poetry]
+[project]
 name = "mcp-playwright"
 version = "0.1.0"
-description = ""
-authors = ["Pony.Ma <mtf201013@gmail.com>"]
+description = "Add your description here"
 readme = "README.md"
-packages = [
-    { include = "mcp_playwright", from = "." }
+requires-python = ">=3.10"
+dependencies = [
+    "mcp[cli]>=1.5.0",
+    "playwright[all]>=1.51.0",
 ]
-
-[tool.poetry.dependencies]
-python = "^3.10"
-playwright = {extras = ["all"], version = "^1.50.0"}
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
