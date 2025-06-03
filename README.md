@@ -1,6 +1,6 @@
 # Playwright MCP Server
 
-![GitHub](https://img.shields.io/github/license/your-username/mcp-playwright)
+![GitHub](https://img.shields.io/github/license/ma-pony/mcp-playwright)
 ![Python](https://img.shields.io/badge/python-3.10+-blue.svg)
 ![Playwright](https://img.shields.io/badge/playwright-1.51.0+-green.svg)
 ![MCP](https://img.shields.io/badge/MCP-compatible-purple.svg)
