@@ -35,8 +35,17 @@
 ### 安装
 
 ```bash
-# 克隆仓库
-git clone https://github.com/your-username/mcp-playwright.git
+# 从 PyPI 安装（推荐）
+pip install mcp-playwright
+
+# 或使用 uv
+uv add mcp-playwright
+
+# 安装 Playwright 浏览器
+playwright install
+
+# 开发安装（从源码）
+git clone https://github.com/ma-pony/mcp-playwright.git
 cd mcp-playwright
 
 # 使用 uv 安装依赖（推荐）
@@ -54,7 +63,10 @@ playwright install
 ### 运行服务器
 
 ```bash
-# 直接运行
+# 使用已安装的包
+mcp-playwright
+
+# 或从源码运行
 python main.py
 
 # 或使用 uv
@@ -67,6 +79,18 @@ uv run mcp dev main.py
 ### Claude Desktop 集成
 
 将以下配置添加到 Claude Desktop 的 MCP 配置文件中：
+
+```json
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "mcp-playwright"
+    }
+  }
+}
+```
+
+或者如果从源码运行：
 
 ```json
 {

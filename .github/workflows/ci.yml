@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: 测试 (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v4
+
+    - name: 安装 uv
+      uses: astral-sh/setup-uv@v4
+      with:
+        version: "latest"
+
+    - name: 设置 Python ${{ matrix.python-version }}
+      run: uv python install ${{ matrix.python-version }}
+
+    - name: 安装依赖
+      run: |
+        uv sync --all-extras --dev
+
+    - name: 安装 Playwright 浏览器
+      run: |
+        uv run playwright install chromium
+
+    - name: 代码格式检查 (Black)
+      run: |
+        uv run black --check .
+
+    - name: 导入排序检查 (isort)
+      run: |
+        uv run isort --check-only .
+
+    - name: 类型检查 (mypy)
+      run: |
+        uv run mypy mcp_playwright/
+
+    - name: 运行测试
+      run: |
+        uv run pytest tests/ -v --tb=short
+
+    - name: 测试包构建
+      run: |
+        uv build
+        uv run python -c "import mcp_playwright; print(f'版本: {mcp_playwright.__version__}')"
+
+  lint:
+    name: 代码质量检查
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v4
+
+    - name: 安装 uv
+      uses: astral-sh/setup-uv@v4
+
+    - name: 安装依赖
+      run: |
+        uv sync --dev
+
+    - name: 运行 Ruff 检查
+      run: |
+        uv run ruff check .
+
+    - name: 运行 Ruff 格式检查
+      run: |
+        uv run ruff format --check .
