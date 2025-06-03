@@ -1,0 +1,1602 @@
+<article class="markdown-body entry-content container-lg" itemprop="text"><div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto">MCP Python SDK</h1><a id="user-content-mcp-python-sdk" class="anchor" aria-label="Permalink: MCP Python SDK" href="#mcp-python-sdk"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <div align="center" dir="auto">
+    <p dir="auto"><strong>Python implementation of the Model Context Protocol (MCP)</strong></p>
+    <p dir="auto"><a href="https://pypi.org/project/mcp/" rel="nofollow"><img src="https://camo.githubusercontent.com/e6ba71e25e692956bce8d9b0b4e043d9b7171186941670af455088139928be55/68747470733a2f2f696d672e736869656c64732e696f2f707970692f762f6d63702e737667" alt="PyPI" data-canonical-src="https://img.shields.io/pypi/v/mcp.svg" style="max-width: 100%;"></a>
+    <a href="https://github.com/modelcontextprotocol/python-sdk/blob/main/LICENSE"><img src="https://camo.githubusercontent.com/98147347f1be2b00361083e2aac1a18781acb3109ca688b1cd1940980e9f1201/68747470733a2f2f696d672e736869656c64732e696f2f707970692f6c2f6d63702e737667" alt="MIT licensed" data-canonical-src="https://img.shields.io/pypi/l/mcp.svg" style="max-width: 100%;"></a>
+    <a href="https://www.python.org/downloads/" rel="nofollow"><img src="https://camo.githubusercontent.com/b33b4fb36a9335985026e9b5b20cf5b1e548b7fff9f215b25abd31c9eaaa04ff/68747470733a2f2f696d672e736869656c64732e696f2f707970692f707976657273696f6e732f6d63702e737667" alt="Python Version" data-canonical-src="https://img.shields.io/pypi/pyversions/mcp.svg" style="max-width: 100%;"></a>
+    <a href="https://modelcontextprotocol.io" rel="nofollow"><img src="https://camo.githubusercontent.com/301bdc40b0f2893b417e920988f8aac322e3adab80c8a6c32657286f4aaf3a48/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f646f63732d6d6f64656c636f6e7465787470726f746f636f6c2e696f2d626c75652e737667" alt="Documentation" data-canonical-src="https://img.shields.io/badge/docs-modelcontextprotocol.io-blue.svg" style="max-width: 100%;"></a>
+    <a href="https://spec.modelcontextprotocol.io" rel="nofollow"><img src="https://camo.githubusercontent.com/0e20327998ce56e7a24c9b61227bb10976c5c3b6188551c2bd37e357ad67e7da/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f737065632d737065632e6d6f64656c636f6e7465787470726f746f636f6c2e696f2d626c75652e737667" alt="Specification" data-canonical-src="https://img.shields.io/badge/spec-spec.modelcontextprotocol.io-blue.svg" style="max-width: 100%;"></a>
+    <a href="https://github.com/modelcontextprotocol/python-sdk/discussions"><img src="https://camo.githubusercontent.com/587d3a9857dcc52c6f99b5109e13afc68542ab73eb8160f6a36722bd83a2cb1b/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f64697363757373696f6e732f6d6f64656c636f6e7465787470726f746f636f6c2f707974686f6e2d73646b" alt="GitHub Discussions" data-canonical-src="https://img.shields.io/github/discussions/modelcontextprotocol/python-sdk" style="max-width: 100%;"></a></p>
+    </div>
+
+    <div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto">Table of Contents</h2><a id="user-content-table-of-contents" class="anchor" aria-label="Permalink: Table of Contents" href="#table-of-contents"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <ul dir="auto">
+    <li><a href="#mcp-python-sdk">MCP Python SDK</a>
+    <ul dir="auto">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#installation">Installation</a>
+    <ul dir="auto">
+    <li><a href="#adding-mcp-to-your-python-project">Adding MCP to your python project</a></li>
+    <li><a href="#running-the-standalone-mcp-development-tools">Running the standalone MCP development tools</a></li>
+    </ul>
+    </li>
+    <li><a href="#quickstart">Quickstart</a></li>
+    <li><a href="#what-is-mcp">What is MCP?</a></li>
+    <li><a href="#core-concepts">Core Concepts</a>
+    <ul dir="auto">
+    <li><a href="#server">Server</a></li>
+    <li><a href="#resources">Resources</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#prompts">Prompts</a></li>
+    <li><a href="#images">Images</a></li>
+    <li><a href="#context">Context</a></li>
+    </ul>
+    </li>
+    <li><a href="#running-your-server">Running Your Server</a>
+    <ul dir="auto">
+    <li><a href="#development-mode">Development Mode</a></li>
+    <li><a href="#claude-desktop-integration">Claude Desktop Integration</a></li>
+    <li><a href="#direct-execution">Direct Execution</a></li>
+    <li><a href="#mounting-to-an-existing-asgi-server">Mounting to an Existing ASGI Server</a></li>
+    </ul>
+    </li>
+    <li><a href="#examples">Examples</a>
+    <ul dir="auto">
+    <li><a href="#echo-server">Echo Server</a></li>
+    <li><a href="#sqlite-explorer">SQLite Explorer</a></li>
+    </ul>
+    </li>
+    <li><a href="#advanced-usage">Advanced Usage</a>
+    <ul dir="auto">
+    <li><a href="#low-level-server">Low-Level Server</a></li>
+    <li><a href="#writing-mcp-clients">Writing MCP Clients</a></li>
+    <li><a href="#mcp-primitives">MCP Primitives</a></li>
+    <li><a href="#server-capabilities">Server Capabilities</a></li>
+    </ul>
+    </li>
+    <li><a href="#documentation">Documentation</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    </ul>
+    </li>
+    </ul>
+    <div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto">Overview</h2><a id="user-content-overview" class="anchor" aria-label="Permalink: Overview" href="#overview"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">The Model Context Protocol allows applications to provide context for LLMs in a standardized way, separating the concerns of providing context from the actual LLM interaction. This Python SDK implements the full MCP specification, making it easy to:</p>
+    <ul dir="auto">
+    <li>Build MCP clients that can connect to any MCP server</li>
+    <li>Create MCP servers that expose resources, prompts and tools</li>
+    <li>Use standard transports like stdio, SSE, and Streamable HTTP</li>
+    <li>Handle all MCP protocol messages and lifecycle events</li>
+    </ul>
+    <div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto">Installation</h2><a id="user-content-installation" class="anchor" aria-label="Permalink: Installation" href="#installation"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto">Adding MCP to your python project</h3><a id="user-content-adding-mcp-to-your-python-project" class="anchor" aria-label="Permalink: Adding MCP to your python project" href="#adding-mcp-to-your-python-project"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">We recommend using <a href="https://docs.astral.sh/uv/" rel="nofollow">uv</a> to manage your Python projects.</p>
+    <p dir="auto">If you haven't created a uv-managed project yet, create one:</p>
+    <div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto"><pre>uv init mcp-server-demo
+    <span class="pl-c1">cd</span> mcp-server-demo</pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="uv init mcp-server-demo
+    cd mcp-server-demo" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <p dir="auto">Then add MCP to your project dependencies:</p>
+    <div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto"><pre>uv add <span class="pl-s"><span class="pl-pds">"</span>mcp[cli]<span class="pl-pds">"</span></span></pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="uv add &quot;mcp[cli]&quot;" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <p dir="auto">Alternatively, for projects using pip for dependencies:</p>
+    <div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto"><pre>pip install <span class="pl-s"><span class="pl-pds">"</span>mcp[cli]<span class="pl-pds">"</span></span></pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="pip install &quot;mcp[cli]&quot;" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto">Running the standalone MCP development tools</h3><a id="user-content-running-the-standalone-mcp-development-tools" class="anchor" aria-label="Permalink: Running the standalone MCP development tools" href="#running-the-standalone-mcp-development-tools"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">To run the mcp command with uv:</p>
+    <div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto"><pre>uv run mcp</pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="uv run mcp" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto">Quickstart</h2><a id="user-content-quickstart" class="anchor" aria-label="Permalink: Quickstart" href="#quickstart"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">Let's create a simple MCP server that exposes a calculator tool and some data:</p>
+    <div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-c"># server.py</span>
+    <span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">server</span>.<span class="pl-s1">fastmcp</span> <span class="pl-k">import</span> <span class="pl-v">FastMCP</span>
+
+    <span class="pl-c"># Create an MCP server</span>
+    <span class="pl-s1">mcp</span> <span class="pl-c1">=</span> <span class="pl-en">FastMCP</span>(<span class="pl-s">"Demo"</span>)
+
+
+    <span class="pl-c"># Add an addition tool</span>
+    <span class="pl-en">@<span class="pl-s1">mcp</span>.<span class="pl-c1">tool</span>()</span>
+    <span class="pl-k">def</span> <span class="pl-en">add</span>(<span class="pl-s1">a</span>: <span class="pl-smi">int</span>, <span class="pl-s1">b</span>: <span class="pl-smi">int</span>) <span class="pl-c1">-&gt;</span> <span class="pl-smi">int</span>:
+        <span class="pl-s">"""Add two numbers"""</span>
+        <span class="pl-k">return</span> <span class="pl-s1">a</span> <span class="pl-c1">+</span> <span class="pl-s1">b</span>
+
+
+    <span class="pl-c"># Add a dynamic greeting resource</span>
+    <span class="pl-en">@<span class="pl-s1">mcp</span>.<span class="pl-c1">resource</span>(<span class="pl-s">"greeting://{name}"</span>)</span>
+    <span class="pl-k">def</span> <span class="pl-en">get_greeting</span>(<span class="pl-s1">name</span>: <span class="pl-smi">str</span>) <span class="pl-c1">-&gt;</span> <span class="pl-smi">str</span>:
+        <span class="pl-s">"""Get a personalized greeting"""</span>
+        <span class="pl-k">return</span> <span class="pl-s">f"Hello, <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">name</span><span class="pl-kos">}</span></span>!"</span></pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="# server.py
+    from mcp.server.fastmcp import FastMCP
+
+    # Create an MCP server
+    mcp = FastMCP(&quot;Demo&quot;)
+
+
+    # Add an addition tool
+    @mcp.tool()
+    def add(a: int, b: int) -> int:
+        &quot;&quot;&quot;Add two numbers&quot;&quot;&quot;
+        return a + b
+
+
+    # Add a dynamic greeting resource
+    @mcp.resource(&quot;greeting://{name}&quot;)
+    def get_greeting(name: str) -> str:
+        &quot;&quot;&quot;Get a personalized greeting&quot;&quot;&quot;
+        return f&quot;Hello, {name}!&quot;" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <p dir="auto">You can install this server in <a href="https://claude.ai/download" rel="nofollow">Claude Desktop</a> and interact with it right away by running:</p>
+    <div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto"><pre>mcp install server.py</pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="mcp install server.py" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <p dir="auto">Alternatively, you can test it with the MCP Inspector:</p>
+    <div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto"><pre>mcp dev server.py</pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="mcp dev server.py" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto">What is MCP?</h2><a id="user-content-what-is-mcp" class="anchor" aria-label="Permalink: What is MCP?" href="#what-is-mcp"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">The <a href="https://modelcontextprotocol.io" rel="nofollow">Model Context Protocol (MCP)</a> lets you build servers that expose data and functionality to LLM applications in a secure, standardized way. Think of it like a web API, but specifically designed for LLM interactions. MCP servers can:</p>
+    <ul dir="auto">
+    <li>Expose data through <strong>Resources</strong> (think of these sort of like GET endpoints; they are used to load information into the LLM's context)</li>
+    <li>Provide functionality through <strong>Tools</strong> (sort of like POST endpoints; they are used to execute code or otherwise produce a side effect)</li>
+    <li>Define interaction patterns through <strong>Prompts</strong> (reusable templates for LLM interactions)</li>
+    <li>And more!</li>
+    </ul>
+    <div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto">Core Concepts</h2><a id="user-content-core-concepts" class="anchor" aria-label="Permalink: Core Concepts" href="#core-concepts"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto">Server</h3><a id="user-content-server" class="anchor" aria-label="Permalink: Server" href="#server"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">The FastMCP server is your core interface to the MCP protocol. It handles connection management, protocol compliance, and message routing:</p>
+    <div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-c"># Add lifespan support for startup/shutdown with strong typing</span>
+    <span class="pl-k">from</span> <span class="pl-s1">contextlib</span> <span class="pl-k">import</span> <span class="pl-s1">asynccontextmanager</span>
+    <span class="pl-k">from</span> <span class="pl-s1">collections</span>.<span class="pl-s1">abc</span> <span class="pl-k">import</span> <span class="pl-v">AsyncIterator</span>
+    <span class="pl-k">from</span> <span class="pl-s1">dataclasses</span> <span class="pl-k">import</span> <span class="pl-s1">dataclass</span>
+
+    <span class="pl-k">from</span> <span class="pl-s1">fake_database</span> <span class="pl-k">import</span> <span class="pl-v">Database</span>  <span class="pl-c"># Replace with your actual DB type</span>
+
+    <span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">server</span>.<span class="pl-s1">fastmcp</span> <span class="pl-k">import</span> <span class="pl-v">FastMCP</span>
+
+    <span class="pl-c"># Create a named server</span>
+    <span class="pl-s1">mcp</span> <span class="pl-c1">=</span> <span class="pl-en">FastMCP</span>(<span class="pl-s">"My App"</span>)
+
+    <span class="pl-c"># Specify dependencies for deployment and development</span>
+    <span class="pl-s1">mcp</span> <span class="pl-c1">=</span> <span class="pl-en">FastMCP</span>(<span class="pl-s">"My App"</span>, <span class="pl-s1">dependencies</span><span class="pl-c1">=</span>[<span class="pl-s">"pandas"</span>, <span class="pl-s">"numpy"</span>])
+
+
+    <span class="pl-en">@<span class="pl-s1">dataclass</span></span>
+    <span class="pl-k">class</span> <span class="pl-v">AppContext</span>:
+        <span class="pl-s1">db</span>: <span class="pl-smi">Database</span>
+
+
+    <span class="pl-en">@<span class="pl-s1">asynccontextmanager</span></span>
+    <span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">app_lifespan</span>(<span class="pl-s1">server</span>: <span class="pl-smi">FastMCP</span>) <span class="pl-c1">-&gt;</span> <span class="pl-v">AsyncIterator</span>[<span class="pl-smi">AppContext</span>]:
+        <span class="pl-s">"""Manage application lifecycle with type-safe context"""</span>
+        <span class="pl-c"># Initialize on startup</span>
+        <span class="pl-s1">db</span> <span class="pl-c1">=</span> <span class="pl-k">await</span> <span class="pl-v">Database</span>.<span class="pl-c1">connect</span>()
+        <span class="pl-k">try</span>:
+            <span class="pl-k">yield</span> <span class="pl-en">AppContext</span>(<span class="pl-s1">db</span><span class="pl-c1">=</span><span class="pl-s1">db</span>)
+        <span class="pl-k">finally</span>:
+            <span class="pl-c"># Cleanup on shutdown</span>
+            <span class="pl-k">await</span> <span class="pl-s1">db</span>.<span class="pl-c1">disconnect</span>()
+
+
+    <span class="pl-c"># Pass lifespan to server</span>
+    <span class="pl-s1">mcp</span> <span class="pl-c1">=</span> <span class="pl-en">FastMCP</span>(<span class="pl-s">"My App"</span>, <span class="pl-s1">lifespan</span><span class="pl-c1">=</span><span class="pl-s1">app_lifespan</span>)
+
+
+    <span class="pl-c"># Access type-safe lifespan context in tools</span>
+    <span class="pl-en">@<span class="pl-s1">mcp</span>.<span class="pl-c1">tool</span>()</span>
+    <span class="pl-k">def</span> <span class="pl-en">query_db</span>() <span class="pl-c1">-&gt;</span> <span class="pl-smi">str</span>:
+        <span class="pl-s">"""Tool that uses initialized resources"""</span>
+        <span class="pl-s1">ctx</span> <span class="pl-c1">=</span> <span class="pl-s1">mcp</span>.<span class="pl-c1">get_context</span>()
+        <span class="pl-s1">db</span> <span class="pl-c1">=</span> <span class="pl-s1">ctx</span>.<span class="pl-c1">request_context</span>.<span class="pl-c1">lifespan_context</span>[<span class="pl-s">"db"</span>]
+        <span class="pl-k">return</span> <span class="pl-s1">db</span>.<span class="pl-c1">query</span>()</pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="# Add lifespan support for startup/shutdown with strong typing
+    from contextlib import asynccontextmanager
+    from collections.abc import AsyncIterator
+    from dataclasses import dataclass
+
+    from fake_database import Database  # Replace with your actual DB type
+
+    from mcp.server.fastmcp import FastMCP
+
+    # Create a named server
+    mcp = FastMCP(&quot;My App&quot;)
+
+    # Specify dependencies for deployment and development
+    mcp = FastMCP(&quot;My App&quot;, dependencies=[&quot;pandas&quot;, &quot;numpy&quot;])
+
+
+    @dataclass
+    class AppContext:
+        db: Database
+
+
+    @asynccontextmanager
+    async def app_lifespan(server: FastMCP) -> AsyncIterator[AppContext]:
+        &quot;&quot;&quot;Manage application lifecycle with type-safe context&quot;&quot;&quot;
+        # Initialize on startup
+        db = await Database.connect()
+        try:
+            yield AppContext(db=db)
+        finally:
+            # Cleanup on shutdown
+            await db.disconnect()
+
+
+    # Pass lifespan to server
+    mcp = FastMCP(&quot;My App&quot;, lifespan=app_lifespan)
+
+
+    # Access type-safe lifespan context in tools
+    @mcp.tool()
+    def query_db() -> str:
+        &quot;&quot;&quot;Tool that uses initialized resources&quot;&quot;&quot;
+        ctx = mcp.get_context()
+        db = ctx.request_context.lifespan_context[&quot;db&quot;]
+        return db.query()" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto">Resources</h3><a id="user-content-resources" class="anchor" aria-label="Permalink: Resources" href="#resources"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">Resources are how you expose data to LLMs. They're similar to GET endpoints in a REST API - they provide data but shouldn't perform significant computation or have side effects:</p>
+    <div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">server</span>.<span class="pl-s1">fastmcp</span> <span class="pl-k">import</span> <span class="pl-v">FastMCP</span>
+
+    <span class="pl-s1">mcp</span> <span class="pl-c1">=</span> <span class="pl-en">FastMCP</span>(<span class="pl-s">"My App"</span>)
+
+
+    <span class="pl-en">@<span class="pl-s1">mcp</span>.<span class="pl-c1">resource</span>(<span class="pl-s">"config://app"</span>)</span>
+    <span class="pl-k">def</span> <span class="pl-en">get_config</span>() <span class="pl-c1">-&gt;</span> <span class="pl-smi">str</span>:
+        <span class="pl-s">"""Static configuration data"""</span>
+        <span class="pl-k">return</span> <span class="pl-s">"App configuration here"</span>
+
+
+    <span class="pl-en">@<span class="pl-s1">mcp</span>.<span class="pl-c1">resource</span>(<span class="pl-s">"users://{user_id}/profile"</span>)</span>
+    <span class="pl-k">def</span> <span class="pl-en">get_user_profile</span>(<span class="pl-s1">user_id</span>: <span class="pl-smi">str</span>) <span class="pl-c1">-&gt;</span> <span class="pl-smi">str</span>:
+        <span class="pl-s">"""Dynamic user data"""</span>
+        <span class="pl-k">return</span> <span class="pl-s">f"Profile data for user <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">user_id</span><span class="pl-kos">}</span></span>"</span></pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="from mcp.server.fastmcp import FastMCP
+
+    mcp = FastMCP(&quot;My App&quot;)
+
+
+    @mcp.resource(&quot;config://app&quot;)
+    def get_config() -> str:
+        &quot;&quot;&quot;Static configuration data&quot;&quot;&quot;
+        return &quot;App configuration here&quot;
+
+
+    @mcp.resource(&quot;users://{user_id}/profile&quot;)
+    def get_user_profile(user_id: str) -> str:
+        &quot;&quot;&quot;Dynamic user data&quot;&quot;&quot;
+        return f&quot;Profile data for user {user_id}&quot;" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto">Tools</h3><a id="user-content-tools" class="anchor" aria-label="Permalink: Tools" href="#tools"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">Tools let LLMs take actions through your server. Unlike resources, tools are expected to perform computation and have side effects:</p>
+    <div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-k">import</span> <span class="pl-s1">httpx</span>
+    <span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">server</span>.<span class="pl-s1">fastmcp</span> <span class="pl-k">import</span> <span class="pl-v">FastMCP</span>
+
+    <span class="pl-s1">mcp</span> <span class="pl-c1">=</span> <span class="pl-en">FastMCP</span>(<span class="pl-s">"My App"</span>)
+
+
+    <span class="pl-en">@<span class="pl-s1">mcp</span>.<span class="pl-c1">tool</span>()</span>
+    <span class="pl-k">def</span> <span class="pl-en">calculate_bmi</span>(<span class="pl-s1">weight_kg</span>: <span class="pl-smi">float</span>, <span class="pl-s1">height_m</span>: <span class="pl-smi">float</span>) <span class="pl-c1">-&gt;</span> <span class="pl-smi">float</span>:
+        <span class="pl-s">"""Calculate BMI given weight in kg and height in meters"""</span>
+        <span class="pl-k">return</span> <span class="pl-s1">weight_kg</span> <span class="pl-c1">/</span> (<span class="pl-s1">height_m</span><span class="pl-c1">**</span><span class="pl-c1">2</span>)
+
+
+    <span class="pl-en">@<span class="pl-s1">mcp</span>.<span class="pl-c1">tool</span>()</span>
+    <span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">fetch_weather</span>(<span class="pl-s1">city</span>: <span class="pl-smi">str</span>) <span class="pl-c1">-&gt;</span> <span class="pl-smi">str</span>:
+        <span class="pl-s">"""Fetch current weather for a city"""</span>
+        <span class="pl-k">async</span> <span class="pl-k">with</span> <span class="pl-s1">httpx</span>.<span class="pl-c1">AsyncClient</span>() <span class="pl-k">as</span> <span class="pl-s1">client</span>:
+            <span class="pl-s1">response</span> <span class="pl-c1">=</span> <span class="pl-k">await</span> <span class="pl-s1">client</span>.<span class="pl-c1">get</span>(<span class="pl-s">f"https://api.weather.com/<span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">city</span><span class="pl-kos">}</span></span>"</span>)
+            <span class="pl-k">return</span> <span class="pl-s1">response</span>.<span class="pl-c1">text</span></pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="import httpx
+    from mcp.server.fastmcp import FastMCP
+
+    mcp = FastMCP(&quot;My App&quot;)
+
+
+    @mcp.tool()
+    def calculate_bmi(weight_kg: float, height_m: float) -> float:
+        &quot;&quot;&quot;Calculate BMI given weight in kg and height in meters&quot;&quot;&quot;
+        return weight_kg / (height_m**2)
+
+
+    @mcp.tool()
+    async def fetch_weather(city: str) -> str:
+        &quot;&quot;&quot;Fetch current weather for a city&quot;&quot;&quot;
+        async with httpx.AsyncClient() as client:
+            response = await client.get(f&quot;https://api.weather.com/{city}&quot;)
+            return response.text" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto">Prompts</h3><a id="user-content-prompts" class="anchor" aria-label="Permalink: Prompts" href="#prompts"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">Prompts are reusable templates that help LLMs interact with your server effectively:</p>
+    <div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">server</span>.<span class="pl-s1">fastmcp</span> <span class="pl-k">import</span> <span class="pl-v">FastMCP</span>
+    <span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">server</span>.<span class="pl-s1">fastmcp</span>.<span class="pl-s1">prompts</span> <span class="pl-k">import</span> <span class="pl-s1">base</span>
+
+    <span class="pl-s1">mcp</span> <span class="pl-c1">=</span> <span class="pl-en">FastMCP</span>(<span class="pl-s">"My App"</span>)
+
+
+    <span class="pl-en">@<span class="pl-s1">mcp</span>.<span class="pl-c1">prompt</span>()</span>
+    <span class="pl-k">def</span> <span class="pl-en">review_code</span>(<span class="pl-s1">code</span>: <span class="pl-smi">str</span>) <span class="pl-c1">-&gt;</span> <span class="pl-smi">str</span>:
+        <span class="pl-k">return</span> <span class="pl-s">f"Please review this code:<span class="pl-cce">\n</span><span class="pl-cce">\n</span><span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">code</span><span class="pl-kos">}</span></span>"</span>
+
+
+    <span class="pl-en">@<span class="pl-s1">mcp</span>.<span class="pl-c1">prompt</span>()</span>
+    <span class="pl-k">def</span> <span class="pl-en">debug_error</span>(<span class="pl-s1">error</span>: <span class="pl-smi">str</span>) <span class="pl-c1">-&gt;</span> <span class="pl-s1">list</span>[<span class="pl-s1">base</span>.<span class="pl-c1">Message</span>]:
+        <span class="pl-k">return</span> [
+            <span class="pl-s1">base</span>.<span class="pl-c1">UserMessage</span>(<span class="pl-s">"I'm seeing this error:"</span>),
+            <span class="pl-s1">base</span>.<span class="pl-c1">UserMessage</span>(<span class="pl-s1">error</span>),
+            <span class="pl-s1">base</span>.<span class="pl-c1">AssistantMessage</span>(<span class="pl-s">"I'll help debug that. What have you tried so far?"</span>),
+        ]</pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="from mcp.server.fastmcp import FastMCP
+    from mcp.server.fastmcp.prompts import base
+
+    mcp = FastMCP(&quot;My App&quot;)
+
+
+    @mcp.prompt()
+    def review_code(code: str) -> str:
+        return f&quot;Please review this code:\n\n{code}&quot;
+
+
+    @mcp.prompt()
+    def debug_error(error: str) -> list[base.Message]:
+        return [
+            base.UserMessage(&quot;I'm seeing this error:&quot;),
+            base.UserMessage(error),
+            base.AssistantMessage(&quot;I'll help debug that. What have you tried so far?&quot;),
+        ]" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto">Images</h3><a id="user-content-images" class="anchor" aria-label="Permalink: Images" href="#images"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">FastMCP provides an <code>Image</code> class that automatically handles image data:</p>
+    <div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">server</span>.<span class="pl-s1">fastmcp</span> <span class="pl-k">import</span> <span class="pl-v">FastMCP</span>, <span class="pl-v">Image</span>
+    <span class="pl-k">from</span> <span class="pl-c1">PIL</span> <span class="pl-k">import</span> <span class="pl-v">Image</span> <span class="pl-k">as</span> <span class="pl-v">PILImage</span>
+
+    <span class="pl-s1">mcp</span> <span class="pl-c1">=</span> <span class="pl-en">FastMCP</span>(<span class="pl-s">"My App"</span>)
+
+
+    <span class="pl-en">@<span class="pl-s1">mcp</span>.<span class="pl-c1">tool</span>()</span>
+    <span class="pl-k">def</span> <span class="pl-en">create_thumbnail</span>(<span class="pl-s1">image_path</span>: <span class="pl-smi">str</span>) <span class="pl-c1">-&gt;</span> <span class="pl-smi">Image</span>:
+        <span class="pl-s">"""Create a thumbnail from an image"""</span>
+        <span class="pl-s1">img</span> <span class="pl-c1">=</span> <span class="pl-v">PILImage</span>.<span class="pl-c1">open</span>(<span class="pl-s1">image_path</span>)
+        <span class="pl-s1">img</span>.<span class="pl-c1">thumbnail</span>((<span class="pl-c1">100</span>, <span class="pl-c1">100</span>))
+        <span class="pl-k">return</span> <span class="pl-en">Image</span>(<span class="pl-s1">data</span><span class="pl-c1">=</span><span class="pl-s1">img</span>.<span class="pl-c1">tobytes</span>(), <span class="pl-s1">format</span><span class="pl-c1">=</span><span class="pl-s">"png"</span>)</pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="from mcp.server.fastmcp import FastMCP, Image
+    from PIL import Image as PILImage
+
+    mcp = FastMCP(&quot;My App&quot;)
+
+
+    @mcp.tool()
+    def create_thumbnail(image_path: str) -> Image:
+        &quot;&quot;&quot;Create a thumbnail from an image&quot;&quot;&quot;
+        img = PILImage.open(image_path)
+        img.thumbnail((100, 100))
+        return Image(data=img.tobytes(), format=&quot;png&quot;)" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto">Context</h3><a id="user-content-context" class="anchor" aria-label="Permalink: Context" href="#context"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">The Context object gives your tools and resources access to MCP capabilities:</p>
+    <div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">server</span>.<span class="pl-s1">fastmcp</span> <span class="pl-k">import</span> <span class="pl-v">FastMCP</span>, <span class="pl-v">Context</span>
+
+    <span class="pl-s1">mcp</span> <span class="pl-c1">=</span> <span class="pl-en">FastMCP</span>(<span class="pl-s">"My App"</span>)
+
+
+    <span class="pl-en">@<span class="pl-s1">mcp</span>.<span class="pl-c1">tool</span>()</span>
+    <span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">long_task</span>(<span class="pl-s1">files</span>: <span class="pl-s1">list</span>[<span class="pl-smi">str</span>], <span class="pl-s1">ctx</span>: <span class="pl-smi">Context</span>) <span class="pl-c1">-&gt;</span> <span class="pl-smi">str</span>:
+        <span class="pl-s">"""Process multiple files with progress tracking"""</span>
+        <span class="pl-k">for</span> <span class="pl-s1">i</span>, <span class="pl-s1">file</span> <span class="pl-c1">in</span> <span class="pl-en">enumerate</span>(<span class="pl-s1">files</span>):
+            <span class="pl-s1">ctx</span>.<span class="pl-c1">info</span>(<span class="pl-s">f"Processing <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">file</span><span class="pl-kos">}</span></span>"</span>)
+            <span class="pl-k">await</span> <span class="pl-s1">ctx</span>.<span class="pl-c1">report_progress</span>(<span class="pl-s1">i</span>, <span class="pl-en">len</span>(<span class="pl-s1">files</span>))
+            <span class="pl-s1">data</span>, <span class="pl-s1">mime_type</span> <span class="pl-c1">=</span> <span class="pl-k">await</span> <span class="pl-s1">ctx</span>.<span class="pl-c1">read_resource</span>(<span class="pl-s">f"file://<span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">file</span><span class="pl-kos">}</span></span>"</span>)
+        <span class="pl-k">return</span> <span class="pl-s">"Processing complete"</span></pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="from mcp.server.fastmcp import FastMCP, Context
+
+    mcp = FastMCP(&quot;My App&quot;)
+
+
+    @mcp.tool()
+    async def long_task(files: list[str], ctx: Context) -> str:
+        &quot;&quot;&quot;Process multiple files with progress tracking&quot;&quot;&quot;
+        for i, file in enumerate(files):
+            ctx.info(f&quot;Processing {file}&quot;)
+            await ctx.report_progress(i, len(files))
+            data, mime_type = await ctx.read_resource(f&quot;file://{file}&quot;)
+        return &quot;Processing complete&quot;" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto">Authentication</h3><a id="user-content-authentication" class="anchor" aria-label="Permalink: Authentication" href="#authentication"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">Authentication can be used by servers that want to expose tools accessing protected resources.</p>
+    <p dir="auto"><code>mcp.server.auth</code> implements an OAuth 2.0 server interface, which servers can use by
+    providing an implementation of the <code>OAuthAuthorizationServerProvider</code> protocol.</p>
+    <div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-k">from</span> <span class="pl-s1">mcp</span> <span class="pl-k">import</span> <span class="pl-v">FastMCP</span>
+    <span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">server</span>.<span class="pl-s1">auth</span>.<span class="pl-s1">provider</span> <span class="pl-k">import</span> <span class="pl-v">OAuthAuthorizationServerProvider</span>
+    <span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">server</span>.<span class="pl-s1">auth</span>.<span class="pl-s1">settings</span> <span class="pl-k">import</span> (
+        <span class="pl-v">AuthSettings</span>,
+        <span class="pl-v">ClientRegistrationOptions</span>,
+        <span class="pl-v">RevocationOptions</span>,
+    )
+
+
+    <span class="pl-k">class</span> <span class="pl-v">MyOAuthServerProvider</span>(<span class="pl-v">OAuthAuthorizationServerProvider</span>):
+        <span class="pl-c"># See an example on how to implement at `examples/servers/simple-auth`</span>
+        ...
+
+
+    <span class="pl-s1">mcp</span> <span class="pl-c1">=</span> <span class="pl-en">FastMCP</span>(
+        <span class="pl-s">"My App"</span>,
+        <span class="pl-s1">auth_server_provider</span><span class="pl-c1">=</span><span class="pl-en">MyOAuthServerProvider</span>(),
+        <span class="pl-s1">auth</span><span class="pl-c1">=</span><span class="pl-en">AuthSettings</span>(
+            <span class="pl-s1">issuer_url</span><span class="pl-c1">=</span><span class="pl-s">"https://myapp.com"</span>,
+            <span class="pl-s1">revocation_options</span><span class="pl-c1">=</span><span class="pl-en">RevocationOptions</span>(
+                <span class="pl-s1">enabled</span><span class="pl-c1">=</span><span class="pl-c1">True</span>,
+            ),
+            <span class="pl-s1">client_registration_options</span><span class="pl-c1">=</span><span class="pl-en">ClientRegistrationOptions</span>(
+                <span class="pl-s1">enabled</span><span class="pl-c1">=</span><span class="pl-c1">True</span>,
+                <span class="pl-s1">valid_scopes</span><span class="pl-c1">=</span>[<span class="pl-s">"myscope"</span>, <span class="pl-s">"myotherscope"</span>],
+                <span class="pl-s1">default_scopes</span><span class="pl-c1">=</span>[<span class="pl-s">"myscope"</span>],
+            ),
+            <span class="pl-s1">required_scopes</span><span class="pl-c1">=</span>[<span class="pl-s">"myscope"</span>],
+        ),
+    )</pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="from mcp import FastMCP
+    from mcp.server.auth.provider import OAuthAuthorizationServerProvider
+    from mcp.server.auth.settings import (
+        AuthSettings,
+        ClientRegistrationOptions,
+        RevocationOptions,
+    )
+
+
+    class MyOAuthServerProvider(OAuthAuthorizationServerProvider):
+        # See an example on how to implement at `examples/servers/simple-auth`
+        ...
+
+
+    mcp = FastMCP(
+        &quot;My App&quot;,
+        auth_server_provider=MyOAuthServerProvider(),
+        auth=AuthSettings(
+            issuer_url=&quot;https://myapp.com&quot;,
+            revocation_options=RevocationOptions(
+                enabled=True,
+            ),
+            client_registration_options=ClientRegistrationOptions(
+                enabled=True,
+                valid_scopes=[&quot;myscope&quot;, &quot;myotherscope&quot;],
+                default_scopes=[&quot;myscope&quot;],
+            ),
+            required_scopes=[&quot;myscope&quot;],
+        ),
+    )" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <p dir="auto">See <a href="/modelcontextprotocol/python-sdk/blob/main/src/mcp/server/auth/provider.py">OAuthAuthorizationServerProvider</a> for more details.</p>
+    <div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto">Running Your Server</h2><a id="user-content-running-your-server" class="anchor" aria-label="Permalink: Running Your Server" href="#running-your-server"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto">Development Mode</h3><a id="user-content-development-mode" class="anchor" aria-label="Permalink: Development Mode" href="#development-mode"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">The fastest way to test and debug your server is with the MCP Inspector:</p>
+    <div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto"><pre>mcp dev server.py
+
+    <span class="pl-c"><span class="pl-c">#</span> Add dependencies</span>
+    mcp dev server.py --with pandas --with numpy
+
+    <span class="pl-c"><span class="pl-c">#</span> Mount local code</span>
+    mcp dev server.py --with-editable <span class="pl-c1">.</span></pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="mcp dev server.py
+
+    # Add dependencies
+    mcp dev server.py --with pandas --with numpy
+
+    # Mount local code
+    mcp dev server.py --with-editable ." tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto">Claude Desktop Integration</h3><a id="user-content-claude-desktop-integration" class="anchor" aria-label="Permalink: Claude Desktop Integration" href="#claude-desktop-integration"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">Once your server is ready, install it in Claude Desktop:</p>
+    <div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto"><pre>mcp install server.py
+
+    <span class="pl-c"><span class="pl-c">#</span> Custom name</span>
+    mcp install server.py --name <span class="pl-s"><span class="pl-pds">"</span>My Analytics Server<span class="pl-pds">"</span></span>
+
+    <span class="pl-c"><span class="pl-c">#</span> Environment variables</span>
+    mcp install server.py -v API_KEY=abc123 -v DB_URL=postgres://...
+    mcp install server.py -f .env</pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="mcp install server.py
+
+    # Custom name
+    mcp install server.py --name &quot;My Analytics Server&quot;
+
+    # Environment variables
+    mcp install server.py -v API_KEY=abc123 -v DB_URL=postgres://...
+    mcp install server.py -f .env" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto">Direct Execution</h3><a id="user-content-direct-execution" class="anchor" aria-label="Permalink: Direct Execution" href="#direct-execution"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">For advanced scenarios like custom deployments:</p>
+    <div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">server</span>.<span class="pl-s1">fastmcp</span> <span class="pl-k">import</span> <span class="pl-v">FastMCP</span>
+
+    <span class="pl-s1">mcp</span> <span class="pl-c1">=</span> <span class="pl-en">FastMCP</span>(<span class="pl-s">"My App"</span>)
+
+    <span class="pl-k">if</span> <span class="pl-s1">__name__</span> <span class="pl-c1">==</span> <span class="pl-s">"__main__"</span>:
+        <span class="pl-s1">mcp</span>.<span class="pl-c1">run</span>()</pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="from mcp.server.fastmcp import FastMCP
+
+    mcp = FastMCP(&quot;My App&quot;)
+
+    if __name__ == &quot;__main__&quot;:
+        mcp.run()" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <p dir="auto">Run it with:</p>
+    <div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto"><pre>python server.py
+    <span class="pl-c"><span class="pl-c">#</span> or</span>
+    mcp run server.py</pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="python server.py
+    # or
+    mcp run server.py" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <p dir="auto">Note that <code>mcp run</code> or <code>mcp dev</code> only supports server using FastMCP and not the low-level server variant.</p>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto">Streamable HTTP Transport</h3><a id="user-content-streamable-http-transport" class="anchor" aria-label="Permalink: Streamable HTTP Transport" href="#streamable-http-transport"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <blockquote>
+    <p dir="auto"><strong>Note</strong>: Streamable HTTP transport is superseding SSE transport for production deployments.</p>
+    </blockquote>
+    <div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">server</span>.<span class="pl-s1">fastmcp</span> <span class="pl-k">import</span> <span class="pl-v">FastMCP</span>
+
+    <span class="pl-c"># Stateful server (maintains session state)</span>
+    <span class="pl-s1">mcp</span> <span class="pl-c1">=</span> <span class="pl-en">FastMCP</span>(<span class="pl-s">"StatefulServer"</span>)
+
+    <span class="pl-c"># Stateless server (no session persistence)</span>
+    <span class="pl-s1">mcp</span> <span class="pl-c1">=</span> <span class="pl-en">FastMCP</span>(<span class="pl-s">"StatelessServer"</span>, <span class="pl-s1">stateless_http</span><span class="pl-c1">=</span><span class="pl-c1">True</span>)
+
+    <span class="pl-c"># Stateless server (no session persistence, no sse stream with supported client)</span>
+    <span class="pl-s1">mcp</span> <span class="pl-c1">=</span> <span class="pl-en">FastMCP</span>(<span class="pl-s">"StatelessServer"</span>, <span class="pl-s1">stateless_http</span><span class="pl-c1">=</span><span class="pl-c1">True</span>, <span class="pl-s1">json_response</span><span class="pl-c1">=</span><span class="pl-c1">True</span>)
+
+    <span class="pl-c"># Run server with streamable_http transport</span>
+    <span class="pl-s1">mcp</span>.<span class="pl-c1">run</span>(<span class="pl-s1">transport</span><span class="pl-c1">=</span><span class="pl-s">"streamable-http"</span>)</pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="from mcp.server.fastmcp import FastMCP
+
+    # Stateful server (maintains session state)
+    mcp = FastMCP(&quot;StatefulServer&quot;)
+
+    # Stateless server (no session persistence)
+    mcp = FastMCP(&quot;StatelessServer&quot;, stateless_http=True)
+
+    # Stateless server (no session persistence, no sse stream with supported client)
+    mcp = FastMCP(&quot;StatelessServer&quot;, stateless_http=True, json_response=True)
+
+    # Run server with streamable_http transport
+    mcp.run(transport=&quot;streamable-http&quot;)" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <p dir="auto">You can mount multiple FastMCP servers in a FastAPI application:</p>
+    <div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-c"># echo.py</span>
+    <span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">server</span>.<span class="pl-s1">fastmcp</span> <span class="pl-k">import</span> <span class="pl-v">FastMCP</span>
+
+    <span class="pl-s1">mcp</span> <span class="pl-c1">=</span> <span class="pl-en">FastMCP</span>(<span class="pl-s1">name</span><span class="pl-c1">=</span><span class="pl-s">"EchoServer"</span>, <span class="pl-s1">stateless_http</span><span class="pl-c1">=</span><span class="pl-c1">True</span>)
+
+
+    <span class="pl-en">@<span class="pl-s1">mcp</span>.<span class="pl-c1">tool</span>(<span class="pl-s1">description</span><span class="pl-c1">=</span><span class="pl-s">"A simple echo tool"</span>)</span>
+    <span class="pl-k">def</span> <span class="pl-en">echo</span>(<span class="pl-s1">message</span>: <span class="pl-smi">str</span>) <span class="pl-c1">-&gt;</span> <span class="pl-smi">str</span>:
+        <span class="pl-k">return</span> <span class="pl-s">f"Echo: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">message</span><span class="pl-kos">}</span></span>"</span></pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="# echo.py
+    from mcp.server.fastmcp import FastMCP
+
+    mcp = FastMCP(name=&quot;EchoServer&quot;, stateless_http=True)
+
+
+    @mcp.tool(description=&quot;A simple echo tool&quot;)
+    def echo(message: str) -> str:
+        return f&quot;Echo: {message}&quot;" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-c"># math.py</span>
+    <span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">server</span>.<span class="pl-s1">fastmcp</span> <span class="pl-k">import</span> <span class="pl-v">FastMCP</span>
+
+    <span class="pl-s1">mcp</span> <span class="pl-c1">=</span> <span class="pl-en">FastMCP</span>(<span class="pl-s1">name</span><span class="pl-c1">=</span><span class="pl-s">"MathServer"</span>, <span class="pl-s1">stateless_http</span><span class="pl-c1">=</span><span class="pl-c1">True</span>)
+
+
+    <span class="pl-en">@<span class="pl-s1">mcp</span>.<span class="pl-c1">tool</span>(<span class="pl-s1">description</span><span class="pl-c1">=</span><span class="pl-s">"A simple add tool"</span>)</span>
+    <span class="pl-k">def</span> <span class="pl-en">add_two</span>(<span class="pl-s1">n</span>: <span class="pl-smi">int</span>) <span class="pl-c1">-&gt;</span> <span class="pl-smi">int</span>:
+        <span class="pl-k">return</span> <span class="pl-s1">n</span> <span class="pl-c1">+</span> <span class="pl-c1">2</span></pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="# math.py
+    from mcp.server.fastmcp import FastMCP
+
+    mcp = FastMCP(name=&quot;MathServer&quot;, stateless_http=True)
+
+
+    @mcp.tool(description=&quot;A simple add tool&quot;)
+    def add_two(n: int) -> int:
+        return n + 2" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-c"># main.py</span>
+    <span class="pl-k">import</span> <span class="pl-s1">contextlib</span>
+    <span class="pl-k">from</span> <span class="pl-s1">fastapi</span> <span class="pl-k">import</span> <span class="pl-v">FastAPI</span>
+    <span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">echo</span> <span class="pl-k">import</span> <span class="pl-s1">echo</span>
+    <span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">math</span> <span class="pl-k">import</span> <span class="pl-s1">math</span>
+
+
+    <span class="pl-c"># Create a combined lifespan to manage both session managers</span>
+    <span class="pl-en">@<span class="pl-s1">contextlib</span>.<span class="pl-c1">asynccontextmanager</span></span>
+    <span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">lifespan</span>(<span class="pl-s1">app</span>: <span class="pl-smi">FastAPI</span>):
+        <span class="pl-k">async</span> <span class="pl-k">with</span> <span class="pl-s1">contextlib</span>.<span class="pl-c1">AsyncExitStack</span>() <span class="pl-k">as</span> <span class="pl-s1">stack</span>:
+            <span class="pl-k">await</span> <span class="pl-s1">stack</span>.<span class="pl-c1">enter_async_context</span>(<span class="pl-s1">echo</span>.<span class="pl-c1">mcp</span>.<span class="pl-c1">session_manager</span>.<span class="pl-c1">run</span>())
+            <span class="pl-k">await</span> <span class="pl-s1">stack</span>.<span class="pl-c1">enter_async_context</span>(<span class="pl-s1">math</span>.<span class="pl-c1">mcp</span>.<span class="pl-c1">session_manager</span>.<span class="pl-c1">run</span>())
+            <span class="pl-k">yield</span>
+
+
+    <span class="pl-s1">app</span> <span class="pl-c1">=</span> <span class="pl-en">FastAPI</span>(<span class="pl-s1">lifespan</span><span class="pl-c1">=</span><span class="pl-s1">lifespan</span>)
+    <span class="pl-s1">app</span>.<span class="pl-c1">mount</span>(<span class="pl-s">"/echo"</span>, <span class="pl-s1">echo</span>.<span class="pl-c1">mcp</span>.<span class="pl-c1">streamable_http_app</span>())
+    <span class="pl-s1">app</span>.<span class="pl-c1">mount</span>(<span class="pl-s">"/math"</span>, <span class="pl-s1">math</span>.<span class="pl-c1">mcp</span>.<span class="pl-c1">streamable_http_app</span>())</pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="# main.py
+    import contextlib
+    from fastapi import FastAPI
+    from mcp.echo import echo
+    from mcp.math import math
+
+
+    # Create a combined lifespan to manage both session managers
+    @contextlib.asynccontextmanager
+    async def lifespan(app: FastAPI):
+        async with contextlib.AsyncExitStack() as stack:
+            await stack.enter_async_context(echo.mcp.session_manager.run())
+            await stack.enter_async_context(math.mcp.session_manager.run())
+            yield
+
+
+    app = FastAPI(lifespan=lifespan)
+    app.mount(&quot;/echo&quot;, echo.mcp.streamable_http_app())
+    app.mount(&quot;/math&quot;, math.mcp.streamable_http_app())" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <p dir="auto">For low level server with Streamable HTTP implementations, see:</p>
+    <ul dir="auto">
+    <li>Stateful server: <a href="/modelcontextprotocol/python-sdk/blob/main/examples/servers/simple-streamablehttp"><code>examples/servers/simple-streamablehttp/</code></a></li>
+    <li>Stateless server: <a href="/modelcontextprotocol/python-sdk/blob/main/examples/servers/simple-streamablehttp-stateless"><code>examples/servers/simple-streamablehttp-stateless/</code></a></li>
+    </ul>
+    <p dir="auto">The streamable HTTP transport supports:</p>
+    <ul dir="auto">
+    <li>Stateful and stateless operation modes</li>
+    <li>Resumability with event stores</li>
+    <li>JSON or SSE response formats</li>
+    <li>Better scalability for multi-node deployments</li>
+    </ul>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto">Mounting to an Existing ASGI Server</h3><a id="user-content-mounting-to-an-existing-asgi-server" class="anchor" aria-label="Permalink: Mounting to an Existing ASGI Server" href="#mounting-to-an-existing-asgi-server"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <blockquote>
+    <p dir="auto"><strong>Note</strong>: SSE transport is being superseded by <a href="https://modelcontextprotocol.io/specification/2025-03-26/basic/transports#streamable-http" rel="nofollow">Streamable HTTP transport</a>.</p>
+    </blockquote>
+    <p dir="auto">By default, SSE servers are mounted at <code>/sse</code> and Streamable HTTP servers are mounted at <code>/mcp</code>. You can customize these paths using the methods described below.</p>
+    <p dir="auto">You can mount the SSE server to an existing ASGI server using the <code>sse_app</code> method. This allows you to integrate the SSE server with other ASGI applications.</p>
+    <div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-k">from</span> <span class="pl-s1">starlette</span>.<span class="pl-s1">applications</span> <span class="pl-k">import</span> <span class="pl-v">Starlette</span>
+    <span class="pl-k">from</span> <span class="pl-s1">starlette</span>.<span class="pl-s1">routing</span> <span class="pl-k">import</span> <span class="pl-v">Mount</span>, <span class="pl-v">Host</span>
+    <span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">server</span>.<span class="pl-s1">fastmcp</span> <span class="pl-k">import</span> <span class="pl-v">FastMCP</span>
+
+
+    <span class="pl-s1">mcp</span> <span class="pl-c1">=</span> <span class="pl-en">FastMCP</span>(<span class="pl-s">"My App"</span>)
+
+    <span class="pl-c"># Mount the SSE server to the existing ASGI server</span>
+    <span class="pl-s1">app</span> <span class="pl-c1">=</span> <span class="pl-en">Starlette</span>(
+        <span class="pl-s1">routes</span><span class="pl-c1">=</span>[
+            <span class="pl-en">Mount</span>(<span class="pl-s">'/'</span>, <span class="pl-s1">app</span><span class="pl-c1">=</span><span class="pl-s1">mcp</span>.<span class="pl-c1">sse_app</span>()),
+        ]
+    )
+
+    <span class="pl-c"># or dynamically mount as host</span>
+    <span class="pl-s1">app</span>.<span class="pl-c1">router</span>.<span class="pl-c1">routes</span>.<span class="pl-c1">append</span>(<span class="pl-en">Host</span>(<span class="pl-s">'mcp.acme.corp'</span>, <span class="pl-s1">app</span><span class="pl-c1">=</span><span class="pl-s1">mcp</span>.<span class="pl-c1">sse_app</span>()))</pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="from starlette.applications import Starlette
+    from starlette.routing import Mount, Host
+    from mcp.server.fastmcp import FastMCP
+
+
+    mcp = FastMCP(&quot;My App&quot;)
+
+    # Mount the SSE server to the existing ASGI server
+    app = Starlette(
+        routes=[
+            Mount('/', app=mcp.sse_app()),
+        ]
+    )
+
+    # or dynamically mount as host
+    app.router.routes.append(Host('mcp.acme.corp', app=mcp.sse_app()))" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <p dir="auto">When mounting multiple MCP servers under different paths, you can configure the mount path in several ways:</p>
+    <div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-k">from</span> <span class="pl-s1">starlette</span>.<span class="pl-s1">applications</span> <span class="pl-k">import</span> <span class="pl-v">Starlette</span>
+    <span class="pl-k">from</span> <span class="pl-s1">starlette</span>.<span class="pl-s1">routing</span> <span class="pl-k">import</span> <span class="pl-v">Mount</span>
+    <span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">server</span>.<span class="pl-s1">fastmcp</span> <span class="pl-k">import</span> <span class="pl-v">FastMCP</span>
+
+    <span class="pl-c"># Create multiple MCP servers</span>
+    <span class="pl-s1">github_mcp</span> <span class="pl-c1">=</span> <span class="pl-en">FastMCP</span>(<span class="pl-s">"GitHub API"</span>)
+    <span class="pl-s1">browser_mcp</span> <span class="pl-c1">=</span> <span class="pl-en">FastMCP</span>(<span class="pl-s">"Browser"</span>)
+    <span class="pl-s1">curl_mcp</span> <span class="pl-c1">=</span> <span class="pl-en">FastMCP</span>(<span class="pl-s">"Curl"</span>)
+    <span class="pl-s1">search_mcp</span> <span class="pl-c1">=</span> <span class="pl-en">FastMCP</span>(<span class="pl-s">"Search"</span>)
+
+    <span class="pl-c"># Method 1: Configure mount paths via settings (recommended for persistent configuration)</span>
+    <span class="pl-s1">github_mcp</span>.<span class="pl-c1">settings</span>.<span class="pl-c1">mount_path</span> <span class="pl-c1">=</span> <span class="pl-s">"/github"</span>
+    <span class="pl-s1">browser_mcp</span>.<span class="pl-c1">settings</span>.<span class="pl-c1">mount_path</span> <span class="pl-c1">=</span> <span class="pl-s">"/browser"</span>
+
+    <span class="pl-c"># Method 2: Pass mount path directly to sse_app (preferred for ad-hoc mounting)</span>
+    <span class="pl-c"># This approach doesn't modify the server's settings permanently</span>
+
+    <span class="pl-c"># Create Starlette app with multiple mounted servers</span>
+    <span class="pl-s1">app</span> <span class="pl-c1">=</span> <span class="pl-en">Starlette</span>(
+        <span class="pl-s1">routes</span><span class="pl-c1">=</span>[
+            <span class="pl-c"># Using settings-based configuration</span>
+            <span class="pl-en">Mount</span>(<span class="pl-s">"/github"</span>, <span class="pl-s1">app</span><span class="pl-c1">=</span><span class="pl-s1">github_mcp</span>.<span class="pl-c1">sse_app</span>()),
+            <span class="pl-en">Mount</span>(<span class="pl-s">"/browser"</span>, <span class="pl-s1">app</span><span class="pl-c1">=</span><span class="pl-s1">browser_mcp</span>.<span class="pl-c1">sse_app</span>()),
+            <span class="pl-c"># Using direct mount path parameter</span>
+            <span class="pl-en">Mount</span>(<span class="pl-s">"/curl"</span>, <span class="pl-s1">app</span><span class="pl-c1">=</span><span class="pl-s1">curl_mcp</span>.<span class="pl-c1">sse_app</span>(<span class="pl-s">"/curl"</span>)),
+            <span class="pl-en">Mount</span>(<span class="pl-s">"/search"</span>, <span class="pl-s1">app</span><span class="pl-c1">=</span><span class="pl-s1">search_mcp</span>.<span class="pl-c1">sse_app</span>(<span class="pl-s">"/search"</span>)),
+        ]
+    )
+
+    <span class="pl-c"># Method 3: For direct execution, you can also pass the mount path to run()</span>
+    <span class="pl-k">if</span> <span class="pl-s1">__name__</span> <span class="pl-c1">==</span> <span class="pl-s">"__main__"</span>:
+        <span class="pl-s1">search_mcp</span>.<span class="pl-c1">run</span>(<span class="pl-s1">transport</span><span class="pl-c1">=</span><span class="pl-s">"sse"</span>, <span class="pl-s1">mount_path</span><span class="pl-c1">=</span><span class="pl-s">"/search"</span>)</pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="from starlette.applications import Starlette
+    from starlette.routing import Mount
+    from mcp.server.fastmcp import FastMCP
+
+    # Create multiple MCP servers
+    github_mcp = FastMCP(&quot;GitHub API&quot;)
+    browser_mcp = FastMCP(&quot;Browser&quot;)
+    curl_mcp = FastMCP(&quot;Curl&quot;)
+    search_mcp = FastMCP(&quot;Search&quot;)
+
+    # Method 1: Configure mount paths via settings (recommended for persistent configuration)
+    github_mcp.settings.mount_path = &quot;/github&quot;
+    browser_mcp.settings.mount_path = &quot;/browser&quot;
+
+    # Method 2: Pass mount path directly to sse_app (preferred for ad-hoc mounting)
+    # This approach doesn't modify the server's settings permanently
+
+    # Create Starlette app with multiple mounted servers
+    app = Starlette(
+        routes=[
+            # Using settings-based configuration
+            Mount(&quot;/github&quot;, app=github_mcp.sse_app()),
+            Mount(&quot;/browser&quot;, app=browser_mcp.sse_app()),
+            # Using direct mount path parameter
+            Mount(&quot;/curl&quot;, app=curl_mcp.sse_app(&quot;/curl&quot;)),
+            Mount(&quot;/search&quot;, app=search_mcp.sse_app(&quot;/search&quot;)),
+        ]
+    )
+
+    # Method 3: For direct execution, you can also pass the mount path to run()
+    if __name__ == &quot;__main__&quot;:
+        search_mcp.run(transport=&quot;sse&quot;, mount_path=&quot;/search&quot;)" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <p dir="auto">For more information on mounting applications in Starlette, see the <a href="https://www.starlette.io/routing/#submounting-routes" rel="nofollow">Starlette documentation</a>.</p>
+    <div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto">Examples</h2><a id="user-content-examples" class="anchor" aria-label="Permalink: Examples" href="#examples"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto">Echo Server</h3><a id="user-content-echo-server" class="anchor" aria-label="Permalink: Echo Server" href="#echo-server"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">A simple server demonstrating resources, tools, and prompts:</p>
+    <div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">server</span>.<span class="pl-s1">fastmcp</span> <span class="pl-k">import</span> <span class="pl-v">FastMCP</span>
+
+    <span class="pl-s1">mcp</span> <span class="pl-c1">=</span> <span class="pl-en">FastMCP</span>(<span class="pl-s">"Echo"</span>)
+
+
+    <span class="pl-en">@<span class="pl-s1">mcp</span>.<span class="pl-c1">resource</span>(<span class="pl-s">"echo://{message}"</span>)</span>
+    <span class="pl-k">def</span> <span class="pl-en">echo_resource</span>(<span class="pl-s1">message</span>: <span class="pl-smi">str</span>) <span class="pl-c1">-&gt;</span> <span class="pl-smi">str</span>:
+        <span class="pl-s">"""Echo a message as a resource"""</span>
+        <span class="pl-k">return</span> <span class="pl-s">f"Resource echo: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">message</span><span class="pl-kos">}</span></span>"</span>
+
+
+    <span class="pl-en">@<span class="pl-s1">mcp</span>.<span class="pl-c1">tool</span>()</span>
+    <span class="pl-k">def</span> <span class="pl-en">echo_tool</span>(<span class="pl-s1">message</span>: <span class="pl-smi">str</span>) <span class="pl-c1">-&gt;</span> <span class="pl-smi">str</span>:
+        <span class="pl-s">"""Echo a message as a tool"""</span>
+        <span class="pl-k">return</span> <span class="pl-s">f"Tool echo: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">message</span><span class="pl-kos">}</span></span>"</span>
+
+
+    <span class="pl-en">@<span class="pl-s1">mcp</span>.<span class="pl-c1">prompt</span>()</span>
+    <span class="pl-k">def</span> <span class="pl-en">echo_prompt</span>(<span class="pl-s1">message</span>: <span class="pl-smi">str</span>) <span class="pl-c1">-&gt;</span> <span class="pl-smi">str</span>:
+        <span class="pl-s">"""Create an echo prompt"""</span>
+        <span class="pl-k">return</span> <span class="pl-s">f"Please process this message: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">message</span><span class="pl-kos">}</span></span>"</span></pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="from mcp.server.fastmcp import FastMCP
+
+    mcp = FastMCP(&quot;Echo&quot;)
+
+
+    @mcp.resource(&quot;echo://{message}&quot;)
+    def echo_resource(message: str) -> str:
+        &quot;&quot;&quot;Echo a message as a resource&quot;&quot;&quot;
+        return f&quot;Resource echo: {message}&quot;
+
+
+    @mcp.tool()
+    def echo_tool(message: str) -> str:
+        &quot;&quot;&quot;Echo a message as a tool&quot;&quot;&quot;
+        return f&quot;Tool echo: {message}&quot;
+
+
+    @mcp.prompt()
+    def echo_prompt(message: str) -> str:
+        &quot;&quot;&quot;Create an echo prompt&quot;&quot;&quot;
+        return f&quot;Please process this message: {message}&quot;" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto">SQLite Explorer</h3><a id="user-content-sqlite-explorer" class="anchor" aria-label="Permalink: SQLite Explorer" href="#sqlite-explorer"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">A more complex example showing database integration:</p>
+    <div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-k">import</span> <span class="pl-s1">sqlite3</span>
+
+    <span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">server</span>.<span class="pl-s1">fastmcp</span> <span class="pl-k">import</span> <span class="pl-v">FastMCP</span>
+
+    <span class="pl-s1">mcp</span> <span class="pl-c1">=</span> <span class="pl-en">FastMCP</span>(<span class="pl-s">"SQLite Explorer"</span>)
+
+
+    <span class="pl-en">@<span class="pl-s1">mcp</span>.<span class="pl-c1">resource</span>(<span class="pl-s">"schema://main"</span>)</span>
+    <span class="pl-k">def</span> <span class="pl-en">get_schema</span>() <span class="pl-c1">-&gt;</span> <span class="pl-smi">str</span>:
+        <span class="pl-s">"""Provide the database schema as a resource"""</span>
+        <span class="pl-s1">conn</span> <span class="pl-c1">=</span> <span class="pl-s1">sqlite3</span>.<span class="pl-c1">connect</span>(<span class="pl-s">"database.db"</span>)
+        <span class="pl-s1">schema</span> <span class="pl-c1">=</span> <span class="pl-s1">conn</span>.<span class="pl-c1">execute</span>(<span class="pl-s">"SELECT sql FROM sqlite_master WHERE type='table'"</span>).<span class="pl-c1">fetchall</span>()
+        <span class="pl-k">return</span> <span class="pl-s">"<span class="pl-cce">\n</span>"</span>.<span class="pl-c1">join</span>(<span class="pl-s1">sql</span>[<span class="pl-c1">0</span>] <span class="pl-k">for</span> <span class="pl-s1">sql</span> <span class="pl-c1">in</span> <span class="pl-s1">schema</span> <span class="pl-k">if</span> <span class="pl-s1">sql</span>[<span class="pl-c1">0</span>])
+
+
+    <span class="pl-en">@<span class="pl-s1">mcp</span>.<span class="pl-c1">tool</span>()</span>
+    <span class="pl-k">def</span> <span class="pl-en">query_data</span>(<span class="pl-s1">sql</span>: <span class="pl-smi">str</span>) <span class="pl-c1">-&gt;</span> <span class="pl-smi">str</span>:
+        <span class="pl-s">"""Execute SQL queries safely"""</span>
+        <span class="pl-s1">conn</span> <span class="pl-c1">=</span> <span class="pl-s1">sqlite3</span>.<span class="pl-c1">connect</span>(<span class="pl-s">"database.db"</span>)
+        <span class="pl-k">try</span>:
+            <span class="pl-s1">result</span> <span class="pl-c1">=</span> <span class="pl-s1">conn</span>.<span class="pl-c1">execute</span>(<span class="pl-s1">sql</span>).<span class="pl-c1">fetchall</span>()
+            <span class="pl-k">return</span> <span class="pl-s">"<span class="pl-cce">\n</span>"</span>.<span class="pl-c1">join</span>(<span class="pl-en">str</span>(<span class="pl-s1">row</span>) <span class="pl-k">for</span> <span class="pl-s1">row</span> <span class="pl-c1">in</span> <span class="pl-s1">result</span>)
+        <span class="pl-k">except</span> <span class="pl-v">Exception</span> <span class="pl-k">as</span> <span class="pl-s1">e</span>:
+            <span class="pl-k">return</span> <span class="pl-s">f"Error: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-en">str</span>(<span class="pl-s1">e</span>)<span class="pl-kos">}</span></span>"</span></pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="import sqlite3
+
+    from mcp.server.fastmcp import FastMCP
+
+    mcp = FastMCP(&quot;SQLite Explorer&quot;)
+
+
+    @mcp.resource(&quot;schema://main&quot;)
+    def get_schema() -> str:
+        &quot;&quot;&quot;Provide the database schema as a resource&quot;&quot;&quot;
+        conn = sqlite3.connect(&quot;database.db&quot;)
+        schema = conn.execute(&quot;SELECT sql FROM sqlite_master WHERE type='table'&quot;).fetchall()
+        return &quot;\n&quot;.join(sql[0] for sql in schema if sql[0])
+
+
+    @mcp.tool()
+    def query_data(sql: str) -> str:
+        &quot;&quot;&quot;Execute SQL queries safely&quot;&quot;&quot;
+        conn = sqlite3.connect(&quot;database.db&quot;)
+        try:
+            result = conn.execute(sql).fetchall()
+            return &quot;\n&quot;.join(str(row) for row in result)
+        except Exception as e:
+            return f&quot;Error: {str(e)}&quot;" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto">Advanced Usage</h2><a id="user-content-advanced-usage" class="anchor" aria-label="Permalink: Advanced Usage" href="#advanced-usage"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto">Low-Level Server</h3><a id="user-content-low-level-server" class="anchor" aria-label="Permalink: Low-Level Server" href="#low-level-server"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">For more control, you can use the low-level server implementation directly. This gives you full access to the protocol and allows you to customize every aspect of your server, including lifecycle management through the lifespan API:</p>
+    <div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-k">from</span> <span class="pl-s1">contextlib</span> <span class="pl-k">import</span> <span class="pl-s1">asynccontextmanager</span>
+    <span class="pl-k">from</span> <span class="pl-s1">collections</span>.<span class="pl-s1">abc</span> <span class="pl-k">import</span> <span class="pl-v">AsyncIterator</span>
+
+    <span class="pl-k">from</span> <span class="pl-s1">fake_database</span> <span class="pl-k">import</span> <span class="pl-v">Database</span>  <span class="pl-c"># Replace with your actual DB type</span>
+
+    <span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">server</span> <span class="pl-k">import</span> <span class="pl-v">Server</span>
+
+
+    <span class="pl-en">@<span class="pl-s1">asynccontextmanager</span></span>
+    <span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">server_lifespan</span>(<span class="pl-s1">server</span>: <span class="pl-smi">Server</span>) <span class="pl-c1">-&gt;</span> <span class="pl-v">AsyncIterator</span>[<span class="pl-smi">dict</span>]:
+        <span class="pl-s">"""Manage server startup and shutdown lifecycle."""</span>
+        <span class="pl-c"># Initialize resources on startup</span>
+        <span class="pl-s1">db</span> <span class="pl-c1">=</span> <span class="pl-k">await</span> <span class="pl-v">Database</span>.<span class="pl-c1">connect</span>()
+        <span class="pl-k">try</span>:
+            <span class="pl-k">yield</span> {<span class="pl-s">"db"</span>: <span class="pl-s1">db</span>}
+        <span class="pl-k">finally</span>:
+            <span class="pl-c"># Clean up on shutdown</span>
+            <span class="pl-k">await</span> <span class="pl-s1">db</span>.<span class="pl-c1">disconnect</span>()
+
+
+    <span class="pl-c"># Pass lifespan to server</span>
+    <span class="pl-s1">server</span> <span class="pl-c1">=</span> <span class="pl-en">Server</span>(<span class="pl-s">"example-server"</span>, <span class="pl-s1">lifespan</span><span class="pl-c1">=</span><span class="pl-s1">server_lifespan</span>)
+
+
+    <span class="pl-c"># Access lifespan context in handlers</span>
+    <span class="pl-en">@<span class="pl-s1">server</span>.<span class="pl-c1">call_tool</span>()</span>
+    <span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">query_db</span>(<span class="pl-s1">name</span>: <span class="pl-smi">str</span>, <span class="pl-s1">arguments</span>: <span class="pl-smi">dict</span>) <span class="pl-c1">-&gt;</span> <span class="pl-smi">list</span>:
+        <span class="pl-s1">ctx</span> <span class="pl-c1">=</span> <span class="pl-s1">server</span>.<span class="pl-c1">request_context</span>
+        <span class="pl-s1">db</span> <span class="pl-c1">=</span> <span class="pl-s1">ctx</span>.<span class="pl-c1">lifespan_context</span>[<span class="pl-s">"db"</span>]
+        <span class="pl-k">return</span> <span class="pl-k">await</span> <span class="pl-s1">db</span>.<span class="pl-c1">query</span>(<span class="pl-s1">arguments</span>[<span class="pl-s">"query"</span>])</pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="from contextlib import asynccontextmanager
+    from collections.abc import AsyncIterator
+
+    from fake_database import Database  # Replace with your actual DB type
+
+    from mcp.server import Server
+
+
+    @asynccontextmanager
+    async def server_lifespan(server: Server) -> AsyncIterator[dict]:
+        &quot;&quot;&quot;Manage server startup and shutdown lifecycle.&quot;&quot;&quot;
+        # Initialize resources on startup
+        db = await Database.connect()
+        try:
+            yield {&quot;db&quot;: db}
+        finally:
+            # Clean up on shutdown
+            await db.disconnect()
+
+
+    # Pass lifespan to server
+    server = Server(&quot;example-server&quot;, lifespan=server_lifespan)
+
+
+    # Access lifespan context in handlers
+    @server.call_tool()
+    async def query_db(name: str, arguments: dict) -> list:
+        ctx = server.request_context
+        db = ctx.lifespan_context[&quot;db&quot;]
+        return await db.query(arguments[&quot;query&quot;])" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <p dir="auto">The lifespan API provides:</p>
+    <ul dir="auto">
+    <li>A way to initialize resources when the server starts and clean them up when it stops</li>
+    <li>Access to initialized resources through the request context in handlers</li>
+    <li>Type-safe context passing between lifespan and request handlers</li>
+    </ul>
+    <div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-k">import</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">server</span>.<span class="pl-s1">stdio</span>
+    <span class="pl-k">import</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">types</span> <span class="pl-k">as</span> <span class="pl-s1">types</span>
+    <span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">server</span>.<span class="pl-s1">lowlevel</span> <span class="pl-k">import</span> <span class="pl-v">NotificationOptions</span>, <span class="pl-v">Server</span>
+    <span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">server</span>.<span class="pl-s1">models</span> <span class="pl-k">import</span> <span class="pl-v">InitializationOptions</span>
+
+    <span class="pl-c"># Create a server instance</span>
+    <span class="pl-s1">server</span> <span class="pl-c1">=</span> <span class="pl-en">Server</span>(<span class="pl-s">"example-server"</span>)
+
+
+    <span class="pl-en">@<span class="pl-s1">server</span>.<span class="pl-c1">list_prompts</span>()</span>
+    <span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">handle_list_prompts</span>() <span class="pl-c1">-&gt;</span> <span class="pl-s1">list</span>[<span class="pl-s1">types</span>.<span class="pl-c1">Prompt</span>]:
+        <span class="pl-k">return</span> [
+            <span class="pl-s1">types</span>.<span class="pl-c1">Prompt</span>(
+                <span class="pl-s1">name</span><span class="pl-c1">=</span><span class="pl-s">"example-prompt"</span>,
+                <span class="pl-s1">description</span><span class="pl-c1">=</span><span class="pl-s">"An example prompt template"</span>,
+                <span class="pl-s1">arguments</span><span class="pl-c1">=</span>[
+                    <span class="pl-s1">types</span>.<span class="pl-c1">PromptArgument</span>(
+                        <span class="pl-s1">name</span><span class="pl-c1">=</span><span class="pl-s">"arg1"</span>, <span class="pl-s1">description</span><span class="pl-c1">=</span><span class="pl-s">"Example argument"</span>, <span class="pl-s1">required</span><span class="pl-c1">=</span><span class="pl-c1">True</span>
+                    )
+                ],
+            )
+        ]
+
+
+    <span class="pl-en">@<span class="pl-s1">server</span>.<span class="pl-c1">get_prompt</span>()</span>
+    <span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">handle_get_prompt</span>(
+        <span class="pl-s1">name</span>: <span class="pl-smi">str</span>, <span class="pl-s1">arguments</span>: <span class="pl-s1">dict</span>[<span class="pl-smi">str</span>, <span class="pl-smi">str</span>] <span class="pl-c1">|</span> <span class="pl-c1">None</span>
+    ) <span class="pl-c1">-&gt;</span> <span class="pl-s1">types</span>.<span class="pl-c1">GetPromptResult</span>:
+        <span class="pl-k">if</span> <span class="pl-s1">name</span> <span class="pl-c1">!=</span> <span class="pl-s">"example-prompt"</span>:
+            <span class="pl-k">raise</span> <span class="pl-en">ValueError</span>(<span class="pl-s">f"Unknown prompt: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">name</span><span class="pl-kos">}</span></span>"</span>)
+
+        <span class="pl-k">return</span> <span class="pl-s1">types</span>.<span class="pl-c1">GetPromptResult</span>(
+            <span class="pl-s1">description</span><span class="pl-c1">=</span><span class="pl-s">"Example prompt"</span>,
+            <span class="pl-s1">messages</span><span class="pl-c1">=</span>[
+                <span class="pl-s1">types</span>.<span class="pl-c1">PromptMessage</span>(
+                    <span class="pl-s1">role</span><span class="pl-c1">=</span><span class="pl-s">"user"</span>,
+                    <span class="pl-s1">content</span><span class="pl-c1">=</span><span class="pl-s1">types</span>.<span class="pl-c1">TextContent</span>(<span class="pl-s1">type</span><span class="pl-c1">=</span><span class="pl-s">"text"</span>, <span class="pl-s1">text</span><span class="pl-c1">=</span><span class="pl-s">"Example prompt text"</span>),
+                )
+            ],
+        )
+
+
+    <span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">run</span>():
+        <span class="pl-k">async</span> <span class="pl-k">with</span> <span class="pl-s1">mcp</span>.<span class="pl-c1">server</span>.<span class="pl-c1">stdio</span>.<span class="pl-c1">stdio_server</span>() <span class="pl-k">as</span> (<span class="pl-s1">read_stream</span>, <span class="pl-s1">write_stream</span>):
+            <span class="pl-k">await</span> <span class="pl-s1">server</span>.<span class="pl-c1">run</span>(
+                <span class="pl-s1">read_stream</span>,
+                <span class="pl-s1">write_stream</span>,
+                <span class="pl-en">InitializationOptions</span>(
+                    <span class="pl-s1">server_name</span><span class="pl-c1">=</span><span class="pl-s">"example"</span>,
+                    <span class="pl-s1">server_version</span><span class="pl-c1">=</span><span class="pl-s">"0.1.0"</span>,
+                    <span class="pl-s1">capabilities</span><span class="pl-c1">=</span><span class="pl-s1">server</span>.<span class="pl-c1">get_capabilities</span>(
+                        <span class="pl-s1">notification_options</span><span class="pl-c1">=</span><span class="pl-en">NotificationOptions</span>(),
+                        <span class="pl-s1">experimental_capabilities</span><span class="pl-c1">=</span>{},
+                    ),
+                ),
+            )
+
+
+    <span class="pl-k">if</span> <span class="pl-s1">__name__</span> <span class="pl-c1">==</span> <span class="pl-s">"__main__"</span>:
+        <span class="pl-k">import</span> <span class="pl-s1">asyncio</span>
+
+        <span class="pl-s1">asyncio</span>.<span class="pl-c1">run</span>(<span class="pl-en">run</span>())</pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="import mcp.server.stdio
+    import mcp.types as types
+    from mcp.server.lowlevel import NotificationOptions, Server
+    from mcp.server.models import InitializationOptions
+
+    # Create a server instance
+    server = Server(&quot;example-server&quot;)
+
+
+    @server.list_prompts()
+    async def handle_list_prompts() -> list[types.Prompt]:
+        return [
+            types.Prompt(
+                name=&quot;example-prompt&quot;,
+                description=&quot;An example prompt template&quot;,
+                arguments=[
+                    types.PromptArgument(
+                        name=&quot;arg1&quot;, description=&quot;Example argument&quot;, required=True
+                    )
+                ],
+            )
+        ]
+
+
+    @server.get_prompt()
+    async def handle_get_prompt(
+        name: str, arguments: dict[str, str] | None
+    ) -> types.GetPromptResult:
+        if name != &quot;example-prompt&quot;:
+            raise ValueError(f&quot;Unknown prompt: {name}&quot;)
+
+        return types.GetPromptResult(
+            description=&quot;Example prompt&quot;,
+            messages=[
+                types.PromptMessage(
+                    role=&quot;user&quot;,
+                    content=types.TextContent(type=&quot;text&quot;, text=&quot;Example prompt text&quot;),
+                )
+            ],
+        )
+
+
+    async def run():
+        async with mcp.server.stdio.stdio_server() as (read_stream, write_stream):
+            await server.run(
+                read_stream,
+                write_stream,
+                InitializationOptions(
+                    server_name=&quot;example&quot;,
+                    server_version=&quot;0.1.0&quot;,
+                    capabilities=server.get_capabilities(
+                        notification_options=NotificationOptions(),
+                        experimental_capabilities={},
+                    ),
+                ),
+            )
+
+
+    if __name__ == &quot;__main__&quot;:
+        import asyncio
+
+        asyncio.run(run())" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <p dir="auto">Caution: The <code>mcp run</code> and <code>mcp dev</code> tool doesn't support low-level server.</p>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto">Writing MCP Clients</h3><a id="user-content-writing-mcp-clients" class="anchor" aria-label="Permalink: Writing MCP Clients" href="#writing-mcp-clients"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">The SDK provides a high-level client interface for connecting to MCP servers using various <a href="https://modelcontextprotocol.io/specification/2025-03-26/basic/transports" rel="nofollow">transports</a>:</p>
+    <div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-k">from</span> <span class="pl-s1">mcp</span> <span class="pl-k">import</span> <span class="pl-v">ClientSession</span>, <span class="pl-v">StdioServerParameters</span>, <span class="pl-s1">types</span>
+    <span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">client</span>.<span class="pl-s1">stdio</span> <span class="pl-k">import</span> <span class="pl-s1">stdio_client</span>
+
+    <span class="pl-c"># Create server parameters for stdio connection</span>
+    <span class="pl-s1">server_params</span> <span class="pl-c1">=</span> <span class="pl-en">StdioServerParameters</span>(
+        <span class="pl-s1">command</span><span class="pl-c1">=</span><span class="pl-s">"python"</span>,  <span class="pl-c"># Executable</span>
+        <span class="pl-s1">args</span><span class="pl-c1">=</span>[<span class="pl-s">"example_server.py"</span>],  <span class="pl-c"># Optional command line arguments</span>
+        <span class="pl-s1">env</span><span class="pl-c1">=</span><span class="pl-c1">None</span>,  <span class="pl-c"># Optional environment variables</span>
+    )
+
+
+    <span class="pl-c"># Optional: create a sampling callback</span>
+    <span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">handle_sampling_message</span>(
+        <span class="pl-s1">message</span>: <span class="pl-s1">types</span>.<span class="pl-c1">CreateMessageRequestParams</span>,
+    ) <span class="pl-c1">-&gt;</span> <span class="pl-s1">types</span>.<span class="pl-c1">CreateMessageResult</span>:
+        <span class="pl-k">return</span> <span class="pl-s1">types</span>.<span class="pl-c1">CreateMessageResult</span>(
+            <span class="pl-s1">role</span><span class="pl-c1">=</span><span class="pl-s">"assistant"</span>,
+            <span class="pl-s1">content</span><span class="pl-c1">=</span><span class="pl-s1">types</span>.<span class="pl-c1">TextContent</span>(
+                <span class="pl-s1">type</span><span class="pl-c1">=</span><span class="pl-s">"text"</span>,
+                <span class="pl-s1">text</span><span class="pl-c1">=</span><span class="pl-s">"Hello, world! from model"</span>,
+            ),
+            <span class="pl-s1">model</span><span class="pl-c1">=</span><span class="pl-s">"gpt-3.5-turbo"</span>,
+            <span class="pl-s1">stopReason</span><span class="pl-c1">=</span><span class="pl-s">"endTurn"</span>,
+        )
+
+
+    <span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">run</span>():
+        <span class="pl-k">async</span> <span class="pl-k">with</span> <span class="pl-en">stdio_client</span>(<span class="pl-s1">server_params</span>) <span class="pl-k">as</span> (<span class="pl-s1">read</span>, <span class="pl-s1">write</span>):
+            <span class="pl-k">async</span> <span class="pl-k">with</span> <span class="pl-en">ClientSession</span>(
+                <span class="pl-s1">read</span>, <span class="pl-s1">write</span>, <span class="pl-s1">sampling_callback</span><span class="pl-c1">=</span><span class="pl-s1">handle_sampling_message</span>
+            ) <span class="pl-k">as</span> <span class="pl-s1">session</span>:
+                <span class="pl-c"># Initialize the connection</span>
+                <span class="pl-k">await</span> <span class="pl-s1">session</span>.<span class="pl-c1">initialize</span>()
+
+                <span class="pl-c"># List available prompts</span>
+                <span class="pl-s1">prompts</span> <span class="pl-c1">=</span> <span class="pl-k">await</span> <span class="pl-s1">session</span>.<span class="pl-c1">list_prompts</span>()
+
+                <span class="pl-c"># Get a prompt</span>
+                <span class="pl-s1">prompt</span> <span class="pl-c1">=</span> <span class="pl-k">await</span> <span class="pl-s1">session</span>.<span class="pl-c1">get_prompt</span>(
+                    <span class="pl-s">"example-prompt"</span>, <span class="pl-s1">arguments</span><span class="pl-c1">=</span>{<span class="pl-s">"arg1"</span>: <span class="pl-s">"value"</span>}
+                )
+
+                <span class="pl-c"># List available resources</span>
+                <span class="pl-s1">resources</span> <span class="pl-c1">=</span> <span class="pl-k">await</span> <span class="pl-s1">session</span>.<span class="pl-c1">list_resources</span>()
+
+                <span class="pl-c"># List available tools</span>
+                <span class="pl-s1">tools</span> <span class="pl-c1">=</span> <span class="pl-k">await</span> <span class="pl-s1">session</span>.<span class="pl-c1">list_tools</span>()
+
+                <span class="pl-c"># Read a resource</span>
+                <span class="pl-s1">content</span>, <span class="pl-s1">mime_type</span> <span class="pl-c1">=</span> <span class="pl-k">await</span> <span class="pl-s1">session</span>.<span class="pl-c1">read_resource</span>(<span class="pl-s">"file://some/path"</span>)
+
+                <span class="pl-c"># Call a tool</span>
+                <span class="pl-s1">result</span> <span class="pl-c1">=</span> <span class="pl-k">await</span> <span class="pl-s1">session</span>.<span class="pl-c1">call_tool</span>(<span class="pl-s">"tool-name"</span>, <span class="pl-s1">arguments</span><span class="pl-c1">=</span>{<span class="pl-s">"arg1"</span>: <span class="pl-s">"value"</span>})
+
+
+    <span class="pl-k">if</span> <span class="pl-s1">__name__</span> <span class="pl-c1">==</span> <span class="pl-s">"__main__"</span>:
+        <span class="pl-k">import</span> <span class="pl-s1">asyncio</span>
+
+        <span class="pl-s1">asyncio</span>.<span class="pl-c1">run</span>(<span class="pl-en">run</span>())</pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="from mcp import ClientSession, StdioServerParameters, types
+    from mcp.client.stdio import stdio_client
+
+    # Create server parameters for stdio connection
+    server_params = StdioServerParameters(
+        command=&quot;python&quot;,  # Executable
+        args=[&quot;example_server.py&quot;],  # Optional command line arguments
+        env=None,  # Optional environment variables
+    )
+
+
+    # Optional: create a sampling callback
+    async def handle_sampling_message(
+        message: types.CreateMessageRequestParams,
+    ) -> types.CreateMessageResult:
+        return types.CreateMessageResult(
+            role=&quot;assistant&quot;,
+            content=types.TextContent(
+                type=&quot;text&quot;,
+                text=&quot;Hello, world! from model&quot;,
+            ),
+            model=&quot;gpt-3.5-turbo&quot;,
+            stopReason=&quot;endTurn&quot;,
+        )
+
+
+    async def run():
+        async with stdio_client(server_params) as (read, write):
+            async with ClientSession(
+                read, write, sampling_callback=handle_sampling_message
+            ) as session:
+                # Initialize the connection
+                await session.initialize()
+
+                # List available prompts
+                prompts = await session.list_prompts()
+
+                # Get a prompt
+                prompt = await session.get_prompt(
+                    &quot;example-prompt&quot;, arguments={&quot;arg1&quot;: &quot;value&quot;}
+                )
+
+                # List available resources
+                resources = await session.list_resources()
+
+                # List available tools
+                tools = await session.list_tools()
+
+                # Read a resource
+                content, mime_type = await session.read_resource(&quot;file://some/path&quot;)
+
+                # Call a tool
+                result = await session.call_tool(&quot;tool-name&quot;, arguments={&quot;arg1&quot;: &quot;value&quot;})
+
+
+    if __name__ == &quot;__main__&quot;:
+        import asyncio
+
+        asyncio.run(run())" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <p dir="auto">Clients can also connect using <a href="https://modelcontextprotocol.io/specification/2025-03-26/basic/transports#streamable-http" rel="nofollow">Streamable HTTP transport</a>:</p>
+    <div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">client</span>.<span class="pl-s1">streamable_http</span> <span class="pl-k">import</span> <span class="pl-s1">streamablehttp_client</span>
+    <span class="pl-k">from</span> <span class="pl-s1">mcp</span> <span class="pl-k">import</span> <span class="pl-v">ClientSession</span>
+
+
+    <span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">main</span>():
+        <span class="pl-c"># Connect to a streamable HTTP server</span>
+        <span class="pl-k">async</span> <span class="pl-k">with</span> <span class="pl-en">streamablehttp_client</span>(<span class="pl-s">"example/mcp"</span>) <span class="pl-k">as</span> (
+            <span class="pl-s1">read_stream</span>,
+            <span class="pl-s1">write_stream</span>,
+            <span class="pl-s1">_</span>,
+        ):
+            <span class="pl-c"># Create a session using the client streams</span>
+            <span class="pl-k">async</span> <span class="pl-k">with</span> <span class="pl-en">ClientSession</span>(<span class="pl-s1">read_stream</span>, <span class="pl-s1">write_stream</span>) <span class="pl-k">as</span> <span class="pl-s1">session</span>:
+                <span class="pl-c"># Initialize the connection</span>
+                <span class="pl-k">await</span> <span class="pl-s1">session</span>.<span class="pl-c1">initialize</span>()
+                <span class="pl-c"># Call a tool</span>
+                <span class="pl-s1">tool_result</span> <span class="pl-c1">=</span> <span class="pl-k">await</span> <span class="pl-s1">session</span>.<span class="pl-c1">call_tool</span>(<span class="pl-s">"echo"</span>, {<span class="pl-s">"message"</span>: <span class="pl-s">"hello"</span>})</pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="from mcp.client.streamable_http import streamablehttp_client
+    from mcp import ClientSession
+
+
+    async def main():
+        # Connect to a streamable HTTP server
+        async with streamablehttp_client(&quot;example/mcp&quot;) as (
+            read_stream,
+            write_stream,
+            _,
+        ):
+            # Create a session using the client streams
+            async with ClientSession(read_stream, write_stream) as session:
+                # Initialize the connection
+                await session.initialize()
+                # Call a tool
+                tool_result = await session.call_tool(&quot;echo&quot;, {&quot;message&quot;: &quot;hello&quot;})" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto">OAuth Authentication for Clients</h3><a id="user-content-oauth-authentication-for-clients" class="anchor" aria-label="Permalink: OAuth Authentication for Clients" href="#oauth-authentication-for-clients"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">The SDK includes <a href="https://modelcontextprotocol.io/specification/2025-03-26/basic/authorization" rel="nofollow">authorization support</a> for connecting to protected MCP servers:</p>
+    <div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">client</span>.<span class="pl-s1">auth</span> <span class="pl-k">import</span> <span class="pl-v">OAuthClientProvider</span>, <span class="pl-v">TokenStorage</span>
+    <span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">client</span>.<span class="pl-s1">session</span> <span class="pl-k">import</span> <span class="pl-v">ClientSession</span>
+    <span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">client</span>.<span class="pl-s1">streamable_http</span> <span class="pl-k">import</span> <span class="pl-s1">streamablehttp_client</span>
+    <span class="pl-k">from</span> <span class="pl-s1">mcp</span>.<span class="pl-s1">shared</span>.<span class="pl-s1">auth</span> <span class="pl-k">import</span> <span class="pl-v">OAuthClientInformationFull</span>, <span class="pl-v">OAuthClientMetadata</span>, <span class="pl-v">OAuthToken</span>
+
+
+    <span class="pl-k">class</span> <span class="pl-v">CustomTokenStorage</span>(<span class="pl-v">TokenStorage</span>):
+        <span class="pl-s">"""Simple in-memory token storage implementation."""</span>
+
+        <span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">get_tokens</span>(<span class="pl-s1">self</span>) <span class="pl-c1">-&gt;</span> <span class="pl-v">OAuthToken</span> <span class="pl-c1">|</span> <span class="pl-c1">None</span>:
+            <span class="pl-k">pass</span>
+
+        <span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">set_tokens</span>(<span class="pl-s1">self</span>, <span class="pl-s1">tokens</span>: <span class="pl-smi">OAuthToken</span>) <span class="pl-c1">-&gt;</span> <span class="pl-c1">None</span>:
+            <span class="pl-k">pass</span>
+
+        <span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">get_client_info</span>(<span class="pl-s1">self</span>) <span class="pl-c1">-&gt;</span> <span class="pl-v">OAuthClientInformationFull</span> <span class="pl-c1">|</span> <span class="pl-c1">None</span>:
+            <span class="pl-k">pass</span>
+
+        <span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">set_client_info</span>(<span class="pl-s1">self</span>, <span class="pl-s1">client_info</span>: <span class="pl-smi">OAuthClientInformationFull</span>) <span class="pl-c1">-&gt;</span> <span class="pl-c1">None</span>:
+            <span class="pl-k">pass</span>
+
+
+    <span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">main</span>():
+        <span class="pl-c"># Set up OAuth authentication</span>
+        <span class="pl-s1">oauth_auth</span> <span class="pl-c1">=</span> <span class="pl-en">OAuthClientProvider</span>(
+            <span class="pl-s1">server_url</span><span class="pl-c1">=</span><span class="pl-s">"https://api.example.com"</span>,
+            <span class="pl-s1">client_metadata</span><span class="pl-c1">=</span><span class="pl-en">OAuthClientMetadata</span>(
+                <span class="pl-s1">client_name</span><span class="pl-c1">=</span><span class="pl-s">"My Client"</span>,
+                <span class="pl-s1">redirect_uris</span><span class="pl-c1">=</span>[<span class="pl-s">"http://localhost:3000/callback"</span>],
+                <span class="pl-s1">grant_types</span><span class="pl-c1">=</span>[<span class="pl-s">"authorization_code"</span>, <span class="pl-s">"refresh_token"</span>],
+                <span class="pl-s1">response_types</span><span class="pl-c1">=</span>[<span class="pl-s">"code"</span>],
+            ),
+            <span class="pl-s1">storage</span><span class="pl-c1">=</span><span class="pl-en">CustomTokenStorage</span>(),
+            <span class="pl-s1">redirect_handler</span><span class="pl-c1">=</span><span class="pl-k">lambda</span> <span class="pl-s1">url</span>: <span class="pl-en">print</span>(<span class="pl-s">f"Visit: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">url</span><span class="pl-kos">}</span></span>"</span>),
+            <span class="pl-s1">callback_handler</span><span class="pl-c1">=</span><span class="pl-k">lambda</span>: (<span class="pl-s">"auth_code"</span>, <span class="pl-c1">None</span>),
+        )
+
+        <span class="pl-c"># Use with streamable HTTP client</span>
+        <span class="pl-k">async</span> <span class="pl-k">with</span> <span class="pl-en">streamablehttp_client</span>(
+            <span class="pl-s">"https://api.example.com/mcp"</span>, <span class="pl-s1">auth</span><span class="pl-c1">=</span><span class="pl-s1">oauth_auth</span>
+        ) <span class="pl-k">as</span> (<span class="pl-s1">read</span>, <span class="pl-s1">write</span>, <span class="pl-s1">_</span>):
+            <span class="pl-k">async</span> <span class="pl-k">with</span> <span class="pl-en">ClientSession</span>(<span class="pl-s1">read</span>, <span class="pl-s1">write</span>) <span class="pl-k">as</span> <span class="pl-s1">session</span>:
+                <span class="pl-k">await</span> <span class="pl-s1">session</span>.<span class="pl-c1">initialize</span>()
+                <span class="pl-c"># Authenticated session ready</span></pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="from mcp.client.auth import OAuthClientProvider, TokenStorage
+    from mcp.client.session import ClientSession
+    from mcp.client.streamable_http import streamablehttp_client
+    from mcp.shared.auth import OAuthClientInformationFull, OAuthClientMetadata, OAuthToken
+
+
+    class CustomTokenStorage(TokenStorage):
+        &quot;&quot;&quot;Simple in-memory token storage implementation.&quot;&quot;&quot;
+
+        async def get_tokens(self) -> OAuthToken | None:
+            pass
+
+        async def set_tokens(self, tokens: OAuthToken) -> None:
+            pass
+
+        async def get_client_info(self) -> OAuthClientInformationFull | None:
+            pass
+
+        async def set_client_info(self, client_info: OAuthClientInformationFull) -> None:
+            pass
+
+
+    async def main():
+        # Set up OAuth authentication
+        oauth_auth = OAuthClientProvider(
+            server_url=&quot;https://api.example.com&quot;,
+            client_metadata=OAuthClientMetadata(
+                client_name=&quot;My Client&quot;,
+                redirect_uris=[&quot;http://localhost:3000/callback&quot;],
+                grant_types=[&quot;authorization_code&quot;, &quot;refresh_token&quot;],
+                response_types=[&quot;code&quot;],
+            ),
+            storage=CustomTokenStorage(),
+            redirect_handler=lambda url: print(f&quot;Visit: {url}&quot;),
+            callback_handler=lambda: (&quot;auth_code&quot;, None),
+        )
+
+        # Use with streamable HTTP client
+        async with streamablehttp_client(
+            &quot;https://api.example.com/mcp&quot;, auth=oauth_auth
+        ) as (read, write, _):
+            async with ClientSession(read, write) as session:
+                await session.initialize()
+                # Authenticated session ready" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <p dir="auto">For a complete working example, see <a href="/modelcontextprotocol/python-sdk/blob/main/examples/clients/simple-auth-client"><code>examples/clients/simple-auth-client/</code></a>.</p>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto">MCP Primitives</h3><a id="user-content-mcp-primitives" class="anchor" aria-label="Permalink: MCP Primitives" href="#mcp-primitives"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">The MCP protocol defines three core primitives that servers can implement:</p>
+    <markdown-accessiblity-table data-catalyst=""><table>
+    <thead>
+    <tr>
+    <th>Primitive</th>
+    <th>Control</th>
+    <th>Description</th>
+    <th>Example Use</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Prompts</td>
+    <td>User-controlled</td>
+    <td>Interactive templates invoked by user choice</td>
+    <td>Slash commands, menu options</td>
+    </tr>
+    <tr>
+    <td>Resources</td>
+    <td>Application-controlled</td>
+    <td>Contextual data managed by the client application</td>
+    <td>File contents, API responses</td>
+    </tr>
+    <tr>
+    <td>Tools</td>
+    <td>Model-controlled</td>
+    <td>Functions exposed to the LLM to take actions</td>
+    <td>API calls, data updates</td>
+    </tr>
+    </tbody>
+    </table></markdown-accessiblity-table>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto">Server Capabilities</h3><a id="user-content-server-capabilities" class="anchor" aria-label="Permalink: Server Capabilities" href="#server-capabilities"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">MCP servers declare capabilities during initialization:</p>
+    <markdown-accessiblity-table data-catalyst=""><table>
+    <thead>
+    <tr>
+    <th>Capability</th>
+    <th>Feature Flag</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td><code>prompts</code></td>
+    <td><code>listChanged</code></td>
+    <td>Prompt template management</td>
+    </tr>
+    <tr>
+    <td><code>resources</code></td>
+    <td><code>subscribe</code><br><code>listChanged</code></td>
+    <td>Resource exposure and updates</td>
+    </tr>
+    <tr>
+    <td><code>tools</code></td>
+    <td><code>listChanged</code></td>
+    <td>Tool discovery and execution</td>
+    </tr>
+    <tr>
+    <td><code>logging</code></td>
+    <td>-</td>
+    <td>Server logging configuration</td>
+    </tr>
+    <tr>
+    <td><code>completion</code></td>
+    <td>-</td>
+    <td>Argument completion suggestions</td>
+    </tr>
+    </tbody>
+    </table></markdown-accessiblity-table>
+    <div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto">Documentation</h2><a id="user-content-documentation" class="anchor" aria-label="Permalink: Documentation" href="#documentation"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <ul dir="auto">
+    <li><a href="https://modelcontextprotocol.io" rel="nofollow">Model Context Protocol documentation</a></li>
+    <li><a href="https://spec.modelcontextprotocol.io" rel="nofollow">Model Context Protocol specification</a></li>
+    <li><a href="https://github.com/modelcontextprotocol/servers">Officially supported servers</a></li>
+    </ul>
+    <div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto">Contributing</h2><a id="user-content-contributing" class="anchor" aria-label="Permalink: Contributing" href="#contributing"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">We are passionate about supporting contributors of all levels of experience and would love to see you get involved in the project. See the <a href="/modelcontextprotocol/python-sdk/blob/main/CONTRIBUTING.md">contributing guide</a> to get started.</p>
+    <div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto">License</h2><a id="user-content-license" class="anchor" aria-label="Permalink: License" href="#license"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">This project is licensed under the MIT License - see the LICENSE file for details.</p>
+    </article>

@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "/path/to/mcp-playwright",
+        "run",
+        "python",
+        "main.py"
+      ],
+      "env": {
+        "PLAYWRIGHT_BROWSERS_PATH": "/path/to/playwright/browsers",
+        "PYTHONPATH": "/path/to/mcp-playwright"
+      }
+    }
+  }
+}
