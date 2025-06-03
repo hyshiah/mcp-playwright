@@ -1,14 +1,14 @@
 [project]
 name = "mcp-playwright"
-version = "0.1.0"
+version = "0.1.1"
 description = "基于Playwright的模型上下文协议(MCP)服务器，为AI助手提供强大的浏览器自动化能力"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [
-    { name = "Playwright MCP Team", email = "team@example.com" }
+    { name = "ma-pony", email = "mtf201013@gmail.com" }
 ]
-keywords = ["mcp", "playwright", "automation", "browser", "ai"]
+keywords = ["mcp", "playwright", "automation", "browser", "ai", "llm", "fastmcp"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -20,6 +20,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Internet :: WWW/HTTP :: Browsers",
     "Topic :: Software Development :: Testing",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
 
 dependencies = [
@@ -29,13 +30,17 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/your-org/mcp-playwright"
-Repository = "https://github.com/your-org/mcp-playwright"
-Documentation = "https://github.com/your-org/mcp-playwright#readme"
-"Bug Tracker" = "https://github.com/your-org/mcp-playwright/issues"
+Homepage = "https://github.com/ma-pony/mcp-playwright"
+Repository = "https://github.com/ma-pony/mcp-playwright"
+Documentation = "https://github.com/ma-pony/mcp-playwright#readme"
+"Bug Tracker" = "https://github.com/ma-pony/mcp-playwright/issues"
+Changelog = "https://github.com/ma-pony/mcp-playwright/releases"
 
 [project.scripts]
-mcp-playwright = "main:main"
+mcp-playwright = "mcp_playwright.server:mcp.run"
+
+[project.entry-points."mcp.servers"]
+playwright = "mcp_playwright.server:mcp"
 
 [build-system]
 requires = ["hatchling"]
