@@ -9,7 +9,7 @@ import logging
 from contextlib import asynccontextmanager
 from typing import AsyncIterator, Dict, Any
 
-from mcp.server.fastmcp import FastMCP
+from fastmcp import FastMCP
 
 from .core.browser_manager import BrowserManager
 from .tools.browser_tools import BrowserTools
@@ -18,8 +18,7 @@ from .tools.browser_tools import BrowserTools
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# 创建FastMCP服务器
-mcp = FastMCP("Playwright MCP Server")
+
 
 # 全局变量
 browser_manager: BrowserManager = None
@@ -61,9 +60,10 @@ async def server_lifespan(server: FastMCP) -> AsyncIterator[Dict[str, Any]]:
             await browser_manager.cleanup()
         logger.info("✅ Playwright MCP 服务器资源清理完成")
 
-
+# 创建FastMCP服务器
+mcp = FastMCP("Playwright MCP Server", lifespan = server_lifespan )
 # 设置生命周期
-mcp.lifespan = server_lifespan
+#mcp.lifespan = server_lifespan
 
 
 # ==================== 浏览器控制工具 ====================
@@ -71,7 +71,7 @@ mcp.lifespan = server_lifespan
 @mcp.tool()
 async def create_browser_session(
     browser_type: str = "chromium",
-    headless: bool = True,
+    headless: bool = False,
     viewport_width: int = 1280,
     viewport_height: int = 720,
     timeout: int = 30000
