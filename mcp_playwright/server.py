@@ -36,7 +36,7 @@ async def server_lifespan(server: FastMCP) -> AsyncIterator[Dict[str, Any]]:
         # 初始化浏览器管理器
         browser_manager = BrowserManager(
             browser_type="chromium",
-            headless=True,
+            headless=False,
             max_sessions=10,
             default_viewport={"width": 1280, "height": 720},
             default_timeout=30000
@@ -77,11 +77,10 @@ async def create_browser_session(
     timeout: int = 30000
 ) -> str:
     """
-    创建新的浏览器会话
-
+    创建新的浏览器会话，空白頁面
     Args:
         browser_type: 浏览器类型 (chromium, firefox, webkit)
-        headless: 是否无头模式
+        headless: 是否无头模式預設有頭模式
         viewport_width: 视口宽度
         viewport_height: 视口高度
         timeout: 默认超时时间(毫秒)
@@ -108,9 +107,8 @@ async def navigate_to_url(
 ) -> str:
     """
     导航到指定URL
-
     Args:
-        url: 目标URL
+        url: 目标URL，例如"https://www.deepseek.com"
         wait_until: 等待条件 (load, domcontentloaded, networkidle)
     """
     return await browser_tools.navigate_to_url(url, wait_until)

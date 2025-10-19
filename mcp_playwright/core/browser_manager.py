@@ -109,7 +109,7 @@ class BrowserManager:
     def __init__(
         self,
         browser_type: str = "chromium",
-        headless: bool = True,
+        headless: bool = False,
         max_sessions: int = 10,
         default_viewport: Optional[Dict[str, int]] = None,
         default_timeout: int = 30000
@@ -140,13 +140,19 @@ class BrowserManager:
 
                 logger.info(f"启动 {self.browser_type} 浏览器...")
                 browser_launcher = getattr(self._playwright, self.browser_type)
+                # Use playwright.chromium, playwright.firefox or 
+                # playwright.webkit
+                # Pass headless=False to launch() to see the browser UI
+                # Like browser = playwright.chromium.launch()
                 self._browser = await browser_launcher.launch(
                     headless=self.headless
                 )
 
                 self._initialized = True
-                logger.info("浏览器管理器初始化完成")
-
+                status_str = f"浏览器管理器初始化完成 browser_launch:{browser_launcher}\
+                headless:{self.headless}."
+                logger.info(status_str)
+                #INFO:mcp_playwright.core.browser_manager:浏览器管理器初始化完成 browser_launch:<BrowserType name=chromium executable_path=/home/pi/.cache/ms-playwright/chromium-1187/chrome-linux/chrome>                headless:False.
             except Exception as e:
                 logger.error(f"浏览器管理器初始化失败: {e}")
                 await self._cleanup_resources()
