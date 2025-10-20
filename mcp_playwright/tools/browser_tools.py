@@ -7,6 +7,8 @@
 import base64
 import json
 import logging
+import quopri
+import re
 from typing import Optional, Any, Dict
 
 from playwright.async_api import TimeoutError as PlaywrightTimeoutError
@@ -351,3 +353,35 @@ class BrowserTools:
             "viewport": self._current_session.viewport,
             "timeout": self._current_session.timeout
         }
+    def decode_quoted_printable_html(self, html_str: str) -> str:
+        """解码包含Quoted-Printable编码的HTML字符串"""
+        # 先解码整个字符串
+        try:
+            decoded_bytes = quopri.decodestring(html_str)
+            decoded_str = decoded_bytes.decode('utf-8')
+            return decoded_str
+        except Exception as e:
+            logger.error(f"解码HTML失败: {e}")
+            return html_str
+
+    async def save_page_to_file(self, filename: str) -> str:
+        """
+        将当前页面保存为HTML文件
+        Args:
+            filename: 保存的文件名
+        """
+        try:
+            session = self._get_current_session()
+            page = session.page
+            randered_html = page.content()
+            randered_html = await randered_html
+            #decoded_randered_html = self.decode_quoted_printable_html(randered_html)
+            with open(filename, 'w', encoding='utf-8') as f:
+                f.write(randered_html)
+
+            return f"页面已保存到{filename}"
+
+        except Exception as e:
+            logger.error(f"保存页面失败: {e}")
+            return f"保存页面失败: {str(e)}"
+

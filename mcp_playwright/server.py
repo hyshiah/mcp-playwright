@@ -242,6 +242,14 @@ async def execute_javascript(code: str) -> str:
     """
     return await browser_tools.execute_javascript(code)
 
+@mcp.tool()
+async def save_page_to_file(filename:str) -> str:
+    """
+    将当前页面保存为HTML文件
+    Args:
+        filename: 保存的文件名
+    """
+    return await browser_tools.save_page_to_file(filename)
 
 # ==================== 资源接口 ====================
 
