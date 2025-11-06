@@ -7,7 +7,7 @@ Playwright MCP Server - 基于FastMCP框架的重新实现
 import json
 import logging
 from contextlib import asynccontextmanager
-from typing import AsyncIterator, Dict, Any
+from typing import AsyncIterator, Dict, Any, Annotated, Union, Optional
 
 from fastmcp import FastMCP
 
@@ -217,7 +217,7 @@ async def get_page_url() -> str:
 
 @mcp.tool()
 async def take_screenshot(
-    path: str = None,
+    path: Optional[str] = None,
     full_page: bool = False,
     quality: int = 80
 ) -> str:
@@ -250,6 +250,111 @@ async def save_page_to_file(filename:str) -> str:
         filename: 保存的文件名
     """
     return await browser_tools.save_page_to_file(filename)
+
+@mcp.tool()
+async def snapshot() -> str:
+    """
+    回傳当前页面的快照
+    """
+    return await browser_tools.snapshot()
+
+@mcp.tool()
+async def login_teacher_account(account: str, password: str) -> str:
+    """
+    登入教師帳號
+    Args:
+        account: 教師帳號
+        password: 教師密碼
+    """
+    return await browser_tools.login_teacher_account(account, password)
+
+@mcp.tool()
+async def login_student_account(account: str, password: str) -> str:
+    """
+    登入學生帳號
+    Args:
+        account: 學生帳號
+        password: 學生密碼
+    """
+    return await browser_tools.login_student_account(account, password)   
+
+@mcp.tool()
+async def Student_Leaved_List() -> str:
+    """
+    查詢學生已請假名單
+    """
+    return await browser_tools.get_student_leave_list()
+
+
+@mcp.tool()
+async def Accept_Student_Leave_Request(info_name:str, info_time:str) -> str:
+    """
+    執行同意學生請假相關流程
+    Args:
+        info_name: 學生姓名
+        info_time: 建檔時間
+    """
+    return await browser_tools.accept_student_leave(info_name, info_time)
+
+@mcp.tool()
+async def Class_log_not_filled_inquire() -> str:
+    """
+    查詢教室日誌未填及未輸入缺曠清單
+    """
+    return await browser_tools.Classroom_log_not_filled_inquiry()
+
+@mcp.tool()
+async def auto_fill_classroom_log(month:str, day:str) -> str:
+    """
+    自動填寫教室日誌
+    Args:
+        month: 月份
+        day: 日期
+    """
+    return await browser_tools.auto_fill_classroom_log(month, day)
+
+@mcp.tool()
+async def student_Truancy_Record() -> str:
+    """
+    查詢學生曠課紀錄
+
+    """
+    return await browser_tools.Student_Truancy_Record_inquiry()
+
+
+@mcp.tool()
+async def fill_Student_Leave_application(month: str, date: str, 
+                                         start_sec: int, 
+                                         end_sec: int) -> str:
+    """
+    填寫學生請假申請單
+    Args:
+        month: 請假月份 合法(str) "1", "2" 至 "12"
+        date: 請假日期 合法(str) "1" 至 "31"
+        start_sec: 開始節次(int) 合法 1,2,...12
+        end_sec: 結束節次(int) 合法 1,2,...12
+    """
+    def format_number(num: int) -> str:
+        """
+        將整數轉換為字串格式：
+        - 1-9 轉為 01-09
+        - 10及以上保持原樣
+        """
+        if num < 10:
+            return f"0{num}"
+        else:
+            return str(num)
+
+    return await browser_tools.fill_Student_Leave_application(month, date, format_number(start_sec),
+                                                              format_number(end_sec))
+
+# student_name = Annotated[str, "學生姓名" ]
+# student_all = Annotated[dict[str,str], '{"class":班級, "number":學號, "name":姓名, "kind":假別, "time":建檔時間,  "teacher":導師審核結果}']
+# async def outoforder_Accept_Student_Leave(name :Union[student_name, student_all] ) -> str:
+#     """
+#     同意學生請假 注意 學生請假名單 姓名重複時，請提供完整資訊以避免誤判    
+#     """
+#     return await browser_tools.accept_student_leave(name)
 
 # ==================== 资源接口 ====================
 
@@ -307,6 +412,20 @@ def get_tools_help() -> str:
         "高级功能": {
             "take_screenshot": "截取页面截图",
             "execute_javascript": "执行JavaScript代码"
+        },
+        "教師管理": {
+            "login_teacher_account": "登入教師帳號",
+            "Student_Leaved_List": "查詢學生已請假名單",
+            "Accept_Student_Leave": "同意學生請假",
+            "Class_log_not_filled_inquire": "查詢教室日誌未填及未輸入缺曠清單",
+            "auto_fill_classroom_log": "自動填寫教室日誌",
+            "close_browser_session": "完成後关闭当前浏览器会话"
+        },
+        "學生請假": {
+            "login_student_account": "登入學生帳號",
+            "student_Truancy_Record": "查詢學生曠課紀錄",
+            "fill_Student_Leave_application": "填寫學生請假申請單",
+            "close_browser_session": "完成後关闭当前浏览器会话"
         }
     }
 
@@ -314,37 +433,103 @@ def get_tools_help() -> str:
 
 
 # ==================== 提示模板 ====================
-
+from .prompt.fastmcp_template import MCPPromptClient
+my_prompt_client = MCPPromptClient()
 @mcp.prompt()
-def web_automation_prompt(task: str, url: str = "https://example.com") -> str:
+def default_prompt(user_input: str) -> str:
     """
-    网页自动化任务提示模板
-
+    默认提示模板，基于用户身份进行工作流处理
     Args:
-        task: 要执行的任务描述
-        url: 目标网站URL
+        user_input: 用户输入的文本
     """
-    return f"""
-请使用Playwright MCP工具完成以下网页自动化任务：
+    return my_prompt_client.identity_based_workflow(user_input)
 
-任务：{task}
-目标网站：{url}
+# def web_automation_prompt(task: str, url: str = "https://example.com") -> str:
+#     """
+#     网页自动化任务提示模板
 
-建议步骤：
-1. 首先使用 create_browser_session 创建浏览器会话
-2. 使用 navigate_to_url 导航到目标网站
-3. 根据任务需要使用相应的交互和数据提取工具
-4. 完成后使用 close_browser_session 关闭会话
+#     Args:
+#         task: 要执行的任务描述
+#         url: 目标网站URL
+#     """
+#     return f"""
+# 请使用Playwright MCP工具完成以下网页自动化任务：
 
-可用工具：
-- 页面导航：navigate_to_url
-- 元素交互：click_element, fill_input
-- 数据提取：get_text_content, get_element_attribute, get_page_title
-- 页面分析：execute_javascript, take_screenshot
-- 等待机制：wait_for_selector
+# 任务：{task}
+# 目标网站：{url}
 
-请根据具体任务选择合适的工具组合。
-"""
+# 建议步骤：
+# 1. 首先使用 create_browser_session 创建浏览器会话
+# 2. 使用 navigate_to_url 导航到目标网站
+# 3. 根据任务需要使用相应的交互和数据提取工具
+# 4. 完成后使用 close_browser_session 关闭会话
+
+# 可用工具：
+# - 页面导航：navigate_to_url
+# - 元素交互：click_element, fill_input
+# - 数据提取：get_text_content, get_element_attribute, get_page_title
+# - 页面分析：execute_javascript, take_screenshot
+# - 等待机制：wait_for_selector
+
+# 请根据具体任务选择合适的工具组合。
+# """
+# @mcp.prompt()
+# def teacher_management_prompt(action: str) -> str:
+#     """
+#     教師管理系统自動化操作模板
+#     Args:
+#         task: 要执行的任务描述
+#     """
+#     return f"""
+# 请帮我执行管理操作：{action}
+
+# 可用工具：
+# - login_teacher_account: 登入教師帳號
+# - Student_Leaved_List: 教師查看學生请假名单
+# - Accept_Student_Leave: 教師批准學生请假
+# - Classroom_log_not_filled: 教師查看未填寫的教室日誌
+# - auto_fill_classroom_log: 教師自動填寫教室日誌
+# - create_browser_session 创建浏览器会话
+# - close_browser_session 关闭会话
+
+# 典型流程：
+# 1. 首先确保身份是教師 
+# 2. 首先使用 create_browser_session 创建浏览器会话
+# 3. 登录教师账号 login_teacher_account
+# 4. 根据具体需求选择相应工具
+# 5. 解析調用結果
+# 5. 按提示提供必要参数（如学生姓名、日期等
+# 6. 完成后使用 close_browser_session 关闭会话
+# """
+
+# @mcp.prompt()
+# def student_management_prompt(action: str) -> str:
+#     """
+#     學生請假自動化系统操作模板
+#     Args:
+#         task: 要执行的任务描述
+#     """
+#     return f"""
+# 请帮我执行學生請假操作：{action}
+
+# 可用工具：
+# - student_Truancy_Record: 查詢曠課紀錄
+# - fill_Student_Leave_application: 學生填寫请假申請單
+# - login_student_account: 登入學生帳號
+# - create_browser_session 创建浏览器会话
+# - close_browser_session 关闭会话
+
+# 典型流程：
+# 1. 首先确保身份是學生
+# 2. 首先使用 create_browser_session 创建浏览器会话
+# 3. 登录學生账号 login_teacher_account
+# 4. 查詢曠課紀錄 student_Truancy_Record
+# 5. 選擇請假日期及起訖節次 
+# 6. 填寫请假申請單 fill_Student_Leave_application
+# 7. 根据具体需求选择相应工具
+# 8. 按提示提供必要参数（如学生姓名、日期等）
+# 9. 完成后使用 close_browser_session 关闭会话
+# """
 
 
 if __name__ == "__main__":

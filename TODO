@@ -1,0 +1,16 @@
+Aria 快照
+在 Playwright 中，Aria 快照提供了一种页面可访问性树的 YAML 表示形式。
+这些快照可以存储并在以后进行比较，以验证页面结构是否保持一致或符合定义的预期。
+
+YAML 格式描述了页面上可访问元素的层次结构，详细说明了角色、属性、值和文本内容。
+该结构遵循树状语法，其中每个节点代表一个可访问元素，缩进表示嵌套元素。
+
+每个可访问元素在树中均表示为一个 YAML 节点：
+
+- role "name" [attribute=value]
+role：指定元素的 ARIA 或 HTML 角色（例如：标题、列表、列表项、按钮）。
+"name"：元素的可访问名称。带引号的字符串表示精确值，/patterns/ 用于正则表达式。
+[attribute=value]：属性和值，用方括号表示，代表特定的 ARIA 属性，如 checked、disabled、
+expanded、level、pressed 或 selected。
+这些值来源于 ARIA 属性或基于 HTML 语义计算得出。要检查页面的可访问性树结构，
+请使用 Chrome DevTools 的 Accessibility 标签。
